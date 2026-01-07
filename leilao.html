@@ -104,5 +104,73 @@
                         </div>
                     </div>
                 </div>
+                <div id="grid-leilao" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
+    </div>
+
+<script>
+// 1. LISTA OFICIAL BIOSYN (30 Espécimes)
+const listaDinos = [
+    { id: 'indominus', nome: 'Indominus Rex', preco: '340M', cor: 'red', cat: 'Híbrido' },
+    { id: 'indoraptor', nome: 'Indoraptor', preco: '210M', cor: 'red', cat: 'Híbrido' },
+    { id: 'scorpius', nome: 'Scorpius Rex', preco: '150M', cor: 'red', cat: 'Híbrido' },
+    { id: 'trex', nome: 'T-Rex', preco: '45M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'spino', nome: 'Spinosaurus', preco: '55M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'giga', nome: 'Giganotosaurus', preco: '52M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'mosasaurus', nome: 'Mosasaurus', preco: '62M', cor: 'cyan', cat: 'Aquático' },
+    { id: 'quetzal', nome: 'Quetzalcoatlus', preco: '48M', cor: 'cyan', cat: 'Voador' },
+    { id: 'blue', nome: 'Blue (Raptor)', preco: '25M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'carnotaurus', nome: 'Carnotaurus', preco: '25M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'therizino', nome: 'Therizinosaurus', preco: '38M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'pyro', nome: 'Pyroraptor', preco: '22M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'brachiosaurus', nome: 'Brachiosaurus', preco: '35M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'dilo', nome: 'Dilophosaurus', preco: '12M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'allosaurus', nome: 'Allosaurus', preco: '22M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'baryonyx', nome: 'Baryonyx', preco: '18M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'triceratops', nome: 'Triceratops', preco: '15M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'ankylosaurus', nome: 'Ankylosaurus', preco: '20M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'stego', nome: 'Stegosaurus', preco: '14M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'ptera', nome: 'Pteranodon', preco: '12M', cor: 'cyan', cat: 'Voador' },
+    { id: 'dimorphodon', nome: 'Dimorphodon', preco: '5M', cor: 'cyan', cat: 'Voador' },
+    { id: 'plesio', nome: 'Plesiosaurus', preco: '25M', cor: 'cyan', cat: 'Aquático' },
+    { id: 'parasaurolophus', nome: 'Parasaurolophus', preco: '12M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'apato', nome: 'Apatosaurus', preco: '30M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'pachy', nome: 'Pachycephalosaurus', preco: '8M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'stygimoloch', nome: 'Stygimoloch', preco: '9M', cor: 'green', cat: 'Herbívoro' },
+    { id: 'ceratosaurus', nome: 'Ceratosaurus', preco: '18M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'atrociraptor', nome: 'Atrociraptor', preco: '15M', cor: 'blue', cat: 'Carnívoro' },
+    { id: 'spinoceratops', nome: 'Spinoceratops', preco: '85M', cor: 'red', cat: 'Híbrido' },
+    { id: 'ankylodocus', nome: 'Ankylodocus', preco: '90M', cor: 'red', cat: 'Híbrido' }
+];
+
+// 2. FUNÇÃO QUE DESENHA OS CARDS NA TELA
+const grid = document.getElementById('grid-leilao');
+
+grid.innerHTML = listaDinos.map(dino => `
+    <div class="group relative bg-[#111722]/90 border border-[#232f48] rounded-lg overflow-hidden hover:border-${dino.cor}-500 transition-all duration-300 shadow-lg">
+        <div class="h-40 bg-black/50 flex items-center justify-center relative overflow-hidden">
+            <span class="material-symbols-outlined text-6xl opacity-10 text-white group-hover:scale-110 transition-transform">genetics</span>
+            <div class="absolute top-2 left-2 bg-black/60 px-2 py-1 rounded text-[9px] font-mono text-slate-400">CAT: ${dino.cat}</div>
+        </div>
+        <div class="p-5 border-t border-[#232f48]">
+            <h3 class="text-white font-bold uppercase tracking-tighter text-lg mb-1">${dino.nome}</h3>
+            <div class="flex justify-between items-end mt-4">
+                <div>
+                    <span class="block text-[10px] text-slate-500 font-mono">LANCE MÍNIMO</span>
+                    <span class="text-xl font-black text-green-500">$ ${dino.preco}</span>
+                </div>
+                <button onclick="irParaDetalhes('${dino.id}')" class="bg-${dino.cor}-600 hover:bg-${dino.cor}-500 text-white text-[10px] font-black px-4 py-2 rounded uppercase tracking-widest transition-colors">
+                    Detalhes
+                </button>
+            </div>
+        </div>
+    </div>
+`).join('');
+
+// 3. A FUNÇÃO MÁGICA QUE CONECTA COM A PÁGINA DE DETALHES
+function irParaDetalhes(id) {
+    localStorage.setItem('selectedDino', id); // Salva o ID na memória do navegador
+    window.location.href = 'detalhes.html';   // Vai para a página única de detalhes
+}
+</script>
 
                
