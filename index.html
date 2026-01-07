@@ -1,64 +1,143 @@
-<body class="bg-background-dark text-white font-display overflow-hidden select-none">
-    <main class="flex-1 flex flex-col items-center justify-center p-6 relative w-full max-w-[1400px] mx-auto">
-        <div class="flex flex-col items-center justify-center gap-10 w-full max-w-2xl mx-auto z-20">
-            <div class="flex flex-col gap-2 text-center relative group cursor-default">
-                <div class="flex justify-center mb-4">
-                    <span class="material-symbols-outlined text-red-500 text-6xl opacity-80 mb-2">warning</span>
+<!DOCTYPE html>
+<html class="dark" lang="pt-br">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Biosyn Genetics // Secure Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-dark": "#0a0e17",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glitch-text { position: relative; }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0a0e17;
+        }
+        .glitch-text::before { left: 2px; text-shadow: -1px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
+        .glitch-text::after { left: -2px; text-shadow: -1px 0 #00fff9; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim2 5s infinite linear alternate-reverse; }
+        
+        @keyframes glitch-anim { 0% { clip: rect(38px, 9999px, 84px, 0); } 100% { clip: rect(68px, 9999px, 66px, 0); } }
+        @keyframes glitch-anim2 { 0% { clip: rect(56px, 9999px, 98px, 0); } 100% { clip: rect(98px, 9999px, 50px, 0); } }
+
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.3));
+            background-size: 100% 4px;
+            position: absolute; inset: 0; pointer-events: none; z-index: 10;
+        }
+        .bg-grid { 
+            background-image: linear-gradient(to right, #1a2333 1px, transparent 1px), linear-gradient(to bottom, #1a2333 1px, transparent 1px); 
+            background-size: 40px 40px; 
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark text-white font-mono overflow-hidden select-none">
+    
+    <div class="fixed inset-0 z-0 bg-grid opacity-30"></div>
+    <div class="scanlines opacity-20"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0e17]/50 to-[#0a0e17]"></div>
+
+    <div class="relative z-20 flex flex-col h-screen">
+        
+        <header class="flex items-center justify-between border-b border-blue-900/30 bg-black/40 px-6 py-4 border-t-4 border-t-primary">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-primary text-3xl animate-pulse">genetics</span>
+                <div>
+                    <h2 class="text-xl font-bold tracking-tighter">BIOSYN GENETICS</h2>
+                    <p class="text-[10px] text-blue-500/60 uppercase tracking-[0.3em]">Secure Terminal V.9.0.2</p>
                 </div>
-                <h1 class="glitch-text text-5xl md:text-7xl font-black tracking-[-0.05em] text-white uppercase" data-text="SYSTEM RESTRICTED">
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-right text-[10px] text-slate-500 hidden md:block">
+                    LAT: 34.0522 N<br>LNG: 118.2437 W
+                </div>
+                <div class="flex items-center gap-2 bg-red-950/30 border border-red-500/50 px-3 py-1 rounded">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
+                    <span class="text-xs font-bold text-red-500">STATUS: LOCKED</span>
+                    <span class="material-symbols-outlined text-sm text-slate-400">lock</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+            
+            <div class="mb-8">
+                <span class="material-symbols-outlined text-red-500 text-6xl mb-4 opacity-80">warning</span>
+                <h1 class="glitch-text text-5xl md:text-7xl font-black uppercase tracking-tighter" data-text="SYSTEM RESTRICTED">
                     SYSTEM RESTRICTED
                 </h1>
-                <h2 class="text-primary text-sm md:text-base font-mono tracking-[0.3em] uppercase opacity-80 mt-2">
-                    Biological Asset Database // Level 5 Clearance
-                </h2>
+                <p class="text-primary tracking-[0.4em] text-xs md:text-sm mt-4 opacity-70">
+                    BIOLOGICAL ASSET DATABASE // LEVEL 5 CLEARANCE
+                </p>
             </div>
 
-            <div class="relative group mt-8">
-                <div class="absolute -inset-1 bg-gradient-to-r from-primary to-[#00d2ff] rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
-                <button id="loginBtn" class="relative flex items-center justify-center gap-4 bg-[#101622] hover:bg-primary border border-primary/50 text-white text-lg md:text-xl font-bold tracking-[0.1em] px-12 py-5 rounded-lg overflow-hidden transition-all duration-300 w-full md:w-auto min-w-[300px]">
-                    <span class="material-symbols-outlined z-10">fingerprint</span>
-                    <span class="z-10 relative">ACESSO AUTORIZADO</span>
+            <div class="relative group mt-4">
+                <div class="absolute -inset-1 bg-blue-600 rounded-lg blur opacity-20 group-hover:opacity-60 transition duration-500"></div>
+                <button id="entryBtn" class="relative bg-[#0d121d] border border-blue-500/50 hover:bg-primary px-12 py-5 rounded-lg flex items-center gap-4 transition-all duration-300 group shadow-2xl">
+                    <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">fingerprint</span>
+                    <span class="text-xl font-bold tracking-widest uppercase">Acesso Autorizado</span>
                 </button>
             </div>
 
-            <div id="console-log" class="w-full max-w-md mt-12 bg-[#111722]/90 border border-[#232f48] rounded p-4 font-mono text-xs text-[#92a4c9] h-32 overflow-hidden">
-                <div id="log-content" class="flex flex-col gap-1.5">
-                    <div class="flex justify-between text-primary/80"><span>> STANDBY MODE...</span><span>READY</span></div>
+            <div class="w-full max-w-md mt-12 bg-black/60 border border-blue-900/30 rounded p-4 text-left font-mono text-[10px] text-blue-300/60 shadow-inner">
+                <div id="log-display" class="space-y-1">
+                    <div class="flex justify-between"><span>> INITIALIZING HANDSHAKE...</span><span class="text-green-500">DONE</span></div>
+                    <div class="flex justify-between"><span>> DECRYPTING GENOMIC SEQUENCES...</span><span class="text-yellow-500 animate-pulse">BUSY</span></div>
+                    <div class="flex justify-between opacity-40"><span>> VERIFYING BIOMETRICS...</span><span>WAITING</span></div>
+                    <div class="flex justify-between opacity-20"><span>> ESTABLISHING SECURE TUNNEL...</span><span>PENDING</span></div>
+                </div>
+                <div class="mt-4 h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary w-[42%] shadow-[0_0_10px_#135bec]"></div>
                 </div>
             </div>
-        </div>
-    </main>
+
+        </main>
+
+        <footer class="p-4 border-t border-blue-900/20 bg-black/20 flex justify-between items-center text-[10px] text-slate-600 font-mono italic">
+            <p>WARNING: UNAUTHORIZED ACCESS IS A VIOLATION OF INTERNATIONAL GENETIC TREATIES.</p>
+            <p class="hidden md:block uppercase tracking-widest">Session: 8X99-22B-OMEGA</p>
+        </footer>
+    </div>
 
     <script>
-        const btn = document.getElementById('loginBtn');
-        const logContent = document.getElementById('log-content');
+        const btn = document.getElementById('entryBtn');
+        const logDisplay = document.getElementById('log-display');
 
         btn.addEventListener('click', () => {
-            // Efeito visual no botão
+            // Feedback visual no botão
             btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> PROCESSANDO...`;
-            btn.style.opacity = "0.7";
-            btn.disabled = true;
+            btn.style.borderColor = "#135bec";
+            
+            // Adiciona novos logs antes de sair
+            setTimeout(() => {
+                const newLog = document.createElement('div');
+                newLog.className = "flex justify-between text-primary font-bold";
+                newLog.innerHTML = "<span>> ACCESS GRANTED. WELCOME DR. DODGSON</span><span>OK</span>";
+                logDisplay.appendChild(newLog);
+            }, 500);
 
-            // Simulação de logs no terminal antes de entrar
-            const logs = [
-                "> VERIFICANDO CREDENCIAIS...",
-                "> ACESSANDO SATÉLITE ISLA NUBLAR...",
-                "> CONEXÃO ESTABELECIDA. REDIRECIONANDO..."
-            ];
-
-            logs.forEach((text, i) => {
-                setTimeout(() => {
-                    const div = document.createElement('div');
-                    div.className = "flex justify-between text-yellow-500";
-                    div.innerHTML = `<span>${text}</span><span>OK</span>`;
-                    logContent.appendChild(div);
-                }, i * 500);
-            });
-
-            // Redireciona após os logs
+            // Redireciona para o leilão após 1.5 segundos
             setTimeout(() => {
                 window.location.href = "leilao.html";
-            }, 2000);
+            }, 1500);
         });
     </script>
+
 </body>
+</html>
