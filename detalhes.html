@@ -24,7 +24,6 @@
     <div class="scanlines opacity-20"></div>
 
     <main class="relative z-20 min-h-screen p-4 md:p-10 flex flex-col items-center">
-        
         <div class="w-full max-w-6xl mb-6">
             <a href="leilao.html" class="flex items-center gap-2 text-blue-500 hover:text-white transition-colors font-mono text-sm">
                 <span class="material-symbols-outlined">arrow_back</span> VOLTAR AO INVENTÁRIO
@@ -32,7 +31,6 @@
         </div>
 
         <div class="w-full max-w-6xl bg-[#111722]/90 border border-blue-900/50 rounded-lg overflow-hidden crt-flicker shadow-2xl">
-            
             <div class="grid grid-cols-1 lg:grid-cols-2">
                 
                 <div class="p-8 border-b lg:border-b-0 lg:border-r border-blue-900/30 bg-black/20">
@@ -48,15 +46,13 @@
                         <h4 class="text-blue-500 font-mono text-xs tracking-widest uppercase">Análise de Sequenciamento DNA</h4>
                         <div class="bg-black/40 p-4 border border-blue-900/20 rounded">
                             <div class="flex justify-between mb-2">
-                                <span class="text-[10px] text-slate-500">ESTABILIDADE GENÉTICA</span>
-                                <span id="dino-stability" class="text-[10px] text-green-400">98.2%</span>
+                                <span class="text-[10px] text-slate-500 uppercase">Estabilidade Genética</span>
+                                <span id="dino-stability" class="text-[10px] text-green-400">0%</span>
                             </div>
                             <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                                <div id="dna-bar" class="bg-blue-600 h-full w-[98%]"></div>
+                                <div id="dna-bar" class="bg-blue-600 h-full w-[0%] transition-all duration-1000"></div>
                             </div>
-                            <p id="dino-dna" class="text-[10px] font-mono text-blue-300/60 mt-4 break-all">
-                                AGCT-SEQ-TRX-001-ALPHA-BETA-GAMMA-BIOSYN
-                            </p>
+                            <p id="dino-dna" class="text-[10px] font-mono text-blue-300/60 mt-4 break-all italic">---</p>
                         </div>
                     </div>
                 </div>
@@ -64,9 +60,8 @@
                 <div class="p-8 flex flex-col">
                     <div class="mb-6">
                         <span id="dino-code" class="text-blue-500 font-mono text-xs">#ID_UNDEFINED</span>
-                        <h1 id="dino-name" class="text-5xl font-black uppercase tracking-tighter mb-2 italic">---</h1>
-                        <div id="dino-tags" class="flex gap-2 mb-4">
-                            </div>
+                        <h1 id="dino-name" class="text-5xl font-black uppercase tracking-tighter mb-2 italic text-white">---</h1>
+                        <div id="dino-tags" class="flex gap-2 mb-4"></div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 mb-8">
@@ -82,9 +77,7 @@
 
                     <div class="flex-1">
                         <h4 class="text-blue-500 font-mono text-xs mb-2 uppercase italic">Relatório de Observação</h4>
-                        <p id="dino-desc" class="text-slate-400 text-sm leading-relaxed mb-8">
-                            Carregando dados criptografados do satélite Biosyn...
-                        </p>
+                        <p id="dino-desc" class="text-slate-400 text-sm leading-relaxed mb-8">Carregando dados...</p>
                     </div>
 
                     <div class="mt-auto border-t border-blue-900/30 pt-8">
@@ -94,7 +87,7 @@
                                 <span id="dino-price" class="text-4xl font-black text-green-500">$ 0</span>
                             </div>
                             <div class="text-right">
-                                <span class="block text-[10px] text-red-500 font-bold animate-pulse">LEILÃO EM TEMPO REAL</span>
+                                <span class="block text-[10px] text-red-500 font-bold animate-pulse uppercase">Leilão em tempo real</span>
                                 <span class="text-xs text-slate-400 font-mono">Expira em: 02:45:12</span>
                             </div>
                         </div>
@@ -107,41 +100,60 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
 
     <script>
-   // BANCO DE DADOS COMPLETO
-const dinos = {
-    "trex": { id: "#001", nome: "Tyrannosaurus Rex", preco: "$ 45.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98.4%", dna: "T-REX_GEN_98.4", desc: "O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa.", tags: ["GIGANTE", "TERRESTRE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
-    "raptor": { id: "#002", nome: "Velociraptor", preco: "$ 18.200.000", dieta: "Carnívoro (Social)", threat: "Nível Crítico", stability: "94.1%", dna: "V-RAPTOR_INTEL_MOD", desc: "Inteligência tática nível Alfa. Velocidade de ataque superior a 60km/h.", tags: ["INTELIGENTE", "VELOZ"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
-    "indominus": { id: "#H-001", nome: "Indominus Rex", preco: "$ 340.000.000", dieta: "Híbrido", threat: "Extremo", stability: "75%", dna: "I-REX_GEN_2", desc: "Híbrido experimental. Capacidade de camuflagem térmica e inteligência superior.", tags: ["HÍBRIDO", "LETAL"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
-    "indoraptor": { id: "#H-002", nome: "Indoraptor", preco: "$ 210.000.000", dieta: "Híbrido", threat: "Extremo", stability: "60%", dna: "I-RAPTOR_V2", desc: "Protótipo de arma biológica. Responde a sinalização a laser e comandos acústicos.", tags: ["HÍBRIDO", "AGRESSIVO"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
-    "spino": { id: "#003", nome: "Spinosaurus", preco: "$ 55.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "91%", dna: "SPINO_EGY_V3", desc: "O maior carnívoro terrestre registrado. Excelente nadador e caçador fluvial.", tags: ["AQUÁTICO", "GIGANTE"], img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800" },
-    "mosasaurus": { id: "#A-001", nome: "Mosasaurus", preco: "$ 62.000.000", dieta: "Aquático", threat: "Nível Máximo", stability: "99%", dna: "MOSA_V1_JW", desc: "Gigante oceânico. Requer tanque de contenção nível 10 com filtragem de alta pressão.", tags: ["AQUÁTICO", "GIGANTE"], img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800" },
-    "quetzal": { id: "#V-001", nome: "Quetzalcoatlus", preco: "$ 48.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98%", dna: "QUETZ_DOM_V1", desc: "Maior animal voador da história. Envergadura comparável a um jato executivo.", tags: ["VOADOR", "GIGANTE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
-    "giga": { id: "#004", nome: "Giganotosaurus", preco: "$ 52.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "99%", dna: "GIGA_BS_GEN", desc: "Predador massivo. Supera o T-Rex em comprimento total. Altamente agressivo.", tags: ["DOMINANTE", "GIGANTE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
-    "scorpius": { id: "#H-003", nome: "Scorpius Rex", preco: "$ 150.000.000", dieta: "Híbrido", threat: "Extremo", stability: "40%", dna: "S-REX_E750", desc: "O primeiro híbrido instável. Possui espinhos venenosos e agilidade anormal.", tags: ["HÍBRIDO", "INSTÁVEL"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
-    "therizino": { id: "#022", nome: "Therizinosaurus", preco: "$ 38.000.000", dieta: "Herbívoro", threat: "Nível Crítico", stability: "98%", dna: "THERIZ_G_V1", desc: "Herbívoro territorial. Equipado com garras de 1 metro capazes de perfurar aço.", tags: ["GARRAS", "TERRITORIAL"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" }
-};
+        // BANCO DE DADOS INTEGRADO
+        const dinos = {
+            "trex": { id: "#001", nome: "Tyrannosaurus Rex", preco: "45.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98.4%", dna: "T-REX_GEN_98.4_ALPHA", desc: "O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa.", tags: ["GIGANTE", "TERRESTRE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
+            "raptor": { id: "#002", nome: "Velociraptor", preco: "18.200.000", dieta: "Carnívoro (Social)", threat: "Nível Crítico", stability: "94.1%", dna: "V-RAPTOR_INTEL_MOD", desc: "Inteligência tática nível Alfa. Velocidade de ataque superior a 60km/h.", tags: ["INTELIGENTE", "VELOZ"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
+            "indominus": { id: "#H-001", nome: "Indominus Rex", preco: "340.000.000", dieta: "Híbrido", threat: "Extremo", stability: "75%", dna: "I-REX_GEN_2", desc: "Híbrido experimental. Capacidade de camuflagem térmica e inteligência superior.", tags: ["HÍBRIDO", "LETAL"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
+            "indoraptor": { id: "#H-002", nome: "Indoraptor", preco: "210.000.000", dieta: "Híbrido", threat: "Extremo", stability: "60%", dna: "I-RAPTOR_V2", desc: "Protótipo de arma biológica. Responde a sinalização a laser e comandos acústicos.", tags: ["HÍBRIDO", "AGRESSIVO"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
+            "spino": { id: "#003", nome: "Spinosaurus", preco: "55.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "91%", dna: "SPINO_EGY_V3", desc: "O maior carnívoro terrestre registrado. Excelente nadador e caçador fluvial.", tags: ["AQUÁTICO", "GIGANTE"], img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800" },
+            "mosasaurus": { id: "#A-001", nome: "Mosasaurus", preco: "62.000.000", dieta: "Aquático", threat: "Nível Máximo", stability: "99%", dna: "MOSA_V1_JW", desc: "Gigante oceânico. Requer tanque de contenção nível 10 com filtragem de alta pressão.", tags: ["AQUÁTICO", "GIGANTE"], img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800" },
+            "quetzal": { id: "#V-001", nome: "Quetzalcoatlus", preco: "48.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98%", dna: "QUETZ_DOM_V1", desc: "Maior animal voador da história. Envergadura comparável a um jato executivo.", tags: ["VOADOR", "GIGANTE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
+            "giga": { id: "#004", nome: "Giganotosaurus", preco: "52.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "99%", dna: "GIGA_BS_GEN", desc: "Predador massivo. Supera o T-Rex em comprimento total. Altamente agressivo.", tags: ["DOMINANTE", "GIGANTE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
+            "scorpius": { id: "#H-003", nome: "Scorpius Rex", preco: "150.000.000", dieta: "Híbrido", threat: "Extremo", stability: "40%", dna: "S-REX_E750", desc: "O primeiro híbrido instável. Possui espinhos venenosos e agilidade anormal.", tags: ["HÍBRIDO", "INSTÁVEL"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
+            "therizino": { id: "#022", nome: "Therizinosaurus", preco: "38.000.000", dieta: "Herbívoro", threat: "Nível Crítico", stability: "98%", dna: "THERIZ_G_V1", desc: "Herbívoro territorial. Equipado com garras de 1 metro capazes de perfurar aço.", tags: ["GARRAS", "TERRITORIAL"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" }
+        };
 
-window.onload = function() {
-    const dinoId = localStorage.getItem('selectedDino');
-    const spec = dinos[dinoId];
+        window.onload = function() {
+            const dinoId = localStorage.getItem('selectedDino');
+            const spec = dinos[dinoId];
 
-    if (spec) {
-        // Preenchimento forçado para garantir que apareça
-        if(document.getElementById('dino-name')) document.getElementById('dino-name').innerText = spec.nome;
-        if(document.getElementById('dino-code')) document.getElementById('dino-code').innerText = spec.id;
-        if(document.getElementById('dino-price')) document.getElementById('dino-price').innerText = spec.preco;
-        if(document.getElementById('dino-desc')) document.getElementById('dino-desc').innerText = spec.desc;
-        if(document.getElementById('dino-diet')) document.getElementById('dino-diet').innerText = spec.dieta;
-        if(document.getElementById('dino-threat')) document.getElementById('dino-threat').innerText = spec.threat;
-        if(document.getElementById('dino-dna')) document.getElementById('dino-dna').innerText = spec.dna;
-        if(document.getElementById('dino-stability')) document.getElementById('dino-stability').innerText = spec.stability;
-        if(document.getElementById('dino-img')) document.getElementById('dino-img').src = spec.img;
-        if(document.getElementById('dna-bar')) document.getElementById('dna-bar').style.width = spec.stability;
-    }
-}
+            if (spec) {
+                document.getElementById('dino-name').innerText = spec.nome;
+                document.getElementById('dino-code').innerText = spec.id;
+                document.getElementById('dino-price').innerText = "$ " + spec.preco;
+                document.getElementById('dino-desc').innerText = spec.desc;
+                document.getElementById('dino-diet').innerText = spec.dieta;
+                document.getElementById('dino-threat').innerText = spec.threat;
+                document.getElementById('dino-dna').innerText = spec.dna;
+                document.getElementById('dino-stability').innerText = spec.stability;
+                document.getElementById('dino-img').src = spec.img;
+                document.getElementById('dna-bar').style.width = spec.stability;
+
+                const tagContainer = document.getElementById('dino-tags');
+                tagContainer.innerHTML = "";
+                spec.tags.forEach(t => {
+                    const span = document.createElement('span');
+                    span.className = "bg-blue-900/30 text-blue-400 text-[10px] px-2 py-1 border border-blue-500/30 rounded font-bold uppercase";
+                    span.innerText = t;
+                    tagContainer.appendChild(span);
+                });
+            } else {
+                alert("Ativo não encontrado!");
+            }
+        }
+
+        function fazerLance() {
+            const valor = document.getElementById('bid-input').value;
+            if (valor) {
+                alert("LANCE DE $" + valor + " REGISTRADO!");
+            }
+        }
+    </script>
+</body>
+</html>
