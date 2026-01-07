@@ -113,9 +113,9 @@
     </main>
 
     <script>
-     // 1. BANCO DE DADOS COMPLETO E SINCRONIZADO
+   // BANCO DE DADOS COMPLETO
 const dinos = {
-    "trex": { id: "#001", nome: "Tyrannosaurus Rex", preco: "$ 45.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98.4%", dna: "T-REX_GEN_98.4_ALPHA", desc: "O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa.", tags: ["GIGANTE", "TERRESTRE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
+    "trex": { id: "#001", nome: "Tyrannosaurus Rex", preco: "$ 45.000.000", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98.4%", dna: "T-REX_GEN_98.4", desc: "O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa.", tags: ["GIGANTE", "TERRESTRE"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
     "raptor": { id: "#002", nome: "Velociraptor", preco: "$ 18.200.000", dieta: "Carnívoro (Social)", threat: "Nível Crítico", stability: "94.1%", dna: "V-RAPTOR_INTEL_MOD", desc: "Inteligência tática nível Alfa. Velocidade de ataque superior a 60km/h.", tags: ["INTELIGENTE", "VELOZ"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
     "indominus": { id: "#H-001", nome: "Indominus Rex", preco: "$ 340.000.000", dieta: "Híbrido", threat: "Extremo", stability: "75%", dna: "I-REX_GEN_2", desc: "Híbrido experimental. Capacidade de camuflagem térmica e inteligência superior.", tags: ["HÍBRIDO", "LETAL"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" },
     "indoraptor": { id: "#H-002", nome: "Indoraptor", preco: "$ 210.000.000", dieta: "Híbrido", threat: "Extremo", stability: "60%", dna: "I-RAPTOR_V2", desc: "Protótipo de arma biológica. Responde a sinalização a laser e comandos acústicos.", tags: ["HÍBRIDO", "AGRESSIVO"], img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800" },
@@ -127,43 +127,21 @@ const dinos = {
     "therizino": { id: "#022", nome: "Therizinosaurus", preco: "$ 38.000.000", dieta: "Herbívoro", threat: "Nível Crítico", stability: "98%", dna: "THERIZ_G_V1", desc: "Herbívoro territorial. Equipado com garras de 1 metro capazes de perfurar aço.", tags: ["GARRAS", "TERRITORIAL"], img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" }
 };
 
-// 2. FUNÇÃO QUE PREENCHE TUDO AUTOMATICAMENTE
 window.onload = function() {
     const dinoId = localStorage.getItem('selectedDino');
     const spec = dinos[dinoId];
 
     if (spec) {
-        // Preenche Nome e ID
-        document.getElementById('dino-name').innerText = spec.nome;
-        document.getElementById('dino-code').innerText = spec.id;
-        
-        // Preenche Preço (com o $)
-        document.getElementById('dino-price').innerText = spec.preco;
-        
-        // Preenche Descrição
-        document.getElementById('dino-desc').innerText = spec.desc;
-        
-        // Preenche Detalhes Técnicos (Verifique se as IDs no HTML batem com estas)
-        document.getElementById('dino-diet').innerText = spec.dieta;
-        document.getElementById('dino-threat').innerText = spec.threat;
-        document.getElementById('dino-dna').innerText = spec.dna;
-        document.getElementById('dino-stability').innerText = spec.stability;
-        
-        // Atualiza Imagem e Barra de DNA
-        document.getElementById('dino-img').src = spec.img;
-        document.getElementById('dna-bar').style.width = spec.stability;
-
-        // Limpa e gera as tags dinâmicas
-        const tagContainer = document.getElementById('dino-tags');
-        tagContainer.innerHTML = "";
-        spec.tags.forEach(t => {
-            const span = document.createElement('span');
-            span.className = "bg-blue-900/30 text-blue-400 text-[10px] px-2 py-1 border border-blue-500/30 rounded font-bold uppercase";
-            span.innerText = t;
-            tagContainer.appendChild(span);
-        });
-    } else {
-        console.error("Ativo não encontrado no banco de dados.");
+        // Preenchimento forçado para garantir que apareça
+        if(document.getElementById('dino-name')) document.getElementById('dino-name').innerText = spec.nome;
+        if(document.getElementById('dino-code')) document.getElementById('dino-code').innerText = spec.id;
+        if(document.getElementById('dino-price')) document.getElementById('dino-price').innerText = spec.preco;
+        if(document.getElementById('dino-desc')) document.getElementById('dino-desc').innerText = spec.desc;
+        if(document.getElementById('dino-diet')) document.getElementById('dino-diet').innerText = spec.dieta;
+        if(document.getElementById('dino-threat')) document.getElementById('dino-threat').innerText = spec.threat;
+        if(document.getElementById('dino-dna')) document.getElementById('dino-dna').innerText = spec.dna;
+        if(document.getElementById('dino-stability')) document.getElementById('dino-stability').innerText = spec.stability;
+        if(document.getElementById('dino-img')) document.getElementById('dino-img').src = spec.img;
+        if(document.getElementById('dna-bar')) document.getElementById('dna-bar').style.width = spec.stability;
     }
 }
-        
