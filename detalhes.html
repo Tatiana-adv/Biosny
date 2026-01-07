@@ -189,6 +189,103 @@
             } else {
                 alert("Por favor, insira um valor válido.");
             }
+
+            const dinos = {
+    // --- CARNÍVOROS CLÁSSICOS ---
+    "trex": {
+        id: "#001", nome: "Tyrannosaurus Rex", preco: "$ 45.000.000", dieta: "Carnívoro (Apex)", threat: "Nível Máximo",
+        desc: "O espécime original da Isla Nublar. Força de mordida de 6 toneladas. Requer contenção reforçada.",
+        dna: "T-REX_GEN_98.4_ALPHA", stability: "98.4%", img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800",
+        tags: ["GIGANTE", "TERRESTRE", "DOMINANTE"]
+    },
+    "raptor": {
+        id: "#002", nome: "Velociraptor", preco: "$ 18.200.000", dieta: "Carnívoro (Social)", threat: "Nível Crítico",
+        desc: "Inteligência tática nível Alfa. Capazes de abrir portas e coordenar ataques em bando.",
+        dna: "V-RAPTOR_INTEL_MOD", stability: "94.1%", img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800",
+        tags: ["INTELIGENTE", "VELOZ", "ALFA"]
+    },
+    "spino": {
+        id: "#004", nome: "Spinosaurus", preco: "$ 55.000.000", dieta: "Carnívoro (Semi-Aquático)", threat: "Nível Máximo",
+        desc: "O maior carnívoro terrestre registrado. Capaz de derrotar um T-Rex em combate direto.",
+        dna: "SPINO_EGYP_V3", stability: "91.0%", img: "https://images.unsplash.com/photo-1525833313263-b823d4f11bad?w=800",
+        tags: ["GIGANTE", "AGRESSIVO", "RARO"]
+    },
+    "giga": {
+        id: "#005", nome: "Giganotosaurus", preco: "$ 52.000.000", dieta: "Carnívoro (Apex)", threat: "Nível Máximo",
+        desc: "O predador final da Biosyn. Maior, mais forte e mais agressivo que qualquer espécie anterior.",
+        dna: "GIGA_BS_GEN_V1", stability: "99.2%", img: "https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800",
+        tags: ["BIOSYN_ORIGINAL", "COLOSSAL"]
+    },
+
+    // --- HÍBRIDOS (PROJETOS SECRETOS) ---
+    "indominus": {
+        id: "#H-001", nome: "Indominus Rex", preco: "$ 120.000.000", dieta: "Carnívoro (Híbrido)", threat: "Nível Extremo",
+        desc: "Base genética de T-Rex com DNA de Abelissauros e camuflagem de lula. Altamente instável.",
+        dna: "I-REX_CLASSIFIED_GEN", stability: "78.5%", img: "https://images.unsplash.com/photo-1559963043-3d1991556813?w=800",
+        tags: ["HÍBRIDO", "CAMUFLAGEM", "INSTÁVEL"]
+    },
+    "indoraptor": {
+        id: "#H-002", nome: "Indoraptor", preco: "$ 85.000.000", dieta: "Carnívoro (Protótipo)", threat: "Nível Extremo",
+        desc: "Arma biológica projetada para combate urbano. Responde a sinalização a laser e som.",
+        dna: "I-RAPTOR_PROTOTYPE_V2", stability: "65.0%", img: "https://images.unsplash.com/photo-1596131397999-bb0158409fa4?w=800",
+        tags: ["HÍBRIDO", "LETAL", "RESTRITO"]
+    },
+    "scorpius": {
+        id: "#H-003", nome: "Scorpius Rex", preco: "$ 70.000.000", dieta: "Carnívoro (Híbrido)", threat: "Nível Extremo",
+        desc: "O primeiro híbrido do Dr. Wu. Possui espinhos venenosos e agilidade sobrenatural.",
+        dna: "S-REX_E750_PROJECT", stability: "40.0%", img: "https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b3?w=800",
+        tags: ["VENENOSO", "PROJETO_E750", "CAOS"]
+    },
+
+    // --- AQUÁTICOS ---
+    "mosasaurus": {
+        id: "#003", nome: "Mosasaurus", preco: "$ 62.000.000", dieta: "Carnívoro (Aquático)", threat: "Nível Máximo",
+        desc: "O gigante dos oceanos. Requer tanque de contenção nível S com filtragem de alta pressão.",
+        dna: "MOSA_AQUA_FORCE", stability: "99.0%", img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800",
+        tags: ["AQUÁTICO", "GIGANTE"]
+    },
+    "plesio": {
+        id: "#015", nome: "Plesiosaurus", preco: "$ 25.000.000", dieta: "Piscívoro", threat: "Nível Médio",
+        desc: "Ativo aquático ágil. Pescoço longo permite capturar presas em fendas rochosas.",
+        dna: "PLESIO_V1_BIOSYN", stability: "96.5%", img: "https://images.unsplash.com/photo-1518467166778-b88f373ffec7?w=800",
+        tags: ["AQUÁTICO", "ÁGIL"]
+    },
+
+    // --- VOADORES ---
+    "ptera": {
+        id: "#V-001", nome: "Pteranodon", preco: "$ 12.000.000", dieta: "Piscívoro (Voador)", threat: "Nível Alto",
+        desc: "Répteis voadores agressivos. Requerem aviários com cúpulas de aço reforçado.",
+        dna: "PTERA_ISLA_SORNA", stability: "93.0%", img: "https://images.unsplash.com/photo-1504194901614-2c6b412b189a?w=800",
+        tags: ["VOADOR", "TERRITORIAL"]
+    },
+    "dimorphodon": {
+        id: "#V-002", nome: "Dimorphodon", preco: "$ 5.500.000", dieta: "Carnívoro (Voador)", threat: "Nível Médio",
+        desc: "Pequeno mas feroz. Ataca em enxames, visando pontos vulneráveis de presas maiores.",
+        dna: "DIMOR_V2_JW", stability: "95.0%", img: "https://images.unsplash.com/photo-1534237108410-e8fbde6b79b0?w=800",
+        tags: ["VOADOR", "ENXAME"]
+    },
+    "quetzal": {
+        id: "#V-003", nome: "Quetzalcoatlus", preco: "$ 48.000.000", dieta: "Carnívoro (Voador)", threat: "Nível Máximo",
+        desc: "O maior animal voador que já existiu. Tamanho comparável a uma aeronave de pequeno porte.",
+        dna: "QUETZ_DOMINION_V1", stability: "97.8%", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800",
+        tags: ["COLOSSAL", "VOADOR", "APEX"]
+    },
+
+    // --- OUTRAS ESPÉCIES (HERBÍVOROS E EXÓTICOS) ---
+    "therizino": {
+        id: "#022", nome: "Therizinosaurus", preco: "$ 38.000.000", dieta: "Herbívoro (Territorial)", threat: "Nível Crítico",
+        desc: "Garras de 1 metro de comprimento. Apesar de herbívoro, é extremamente agressivo e cego.",
+        dna: "THERIZ_BIOSYN_V1", stability: "98.1%", img: "https://images.unsplash.com/photo-1559963043-3d1991556813?w=800",
+        tags: ["GARRAS_LETAIS", "AGRESSIVO"]
+    },
+    "pyro": {
+        id: "#025", nome: "Pyroraptor", preco: "$ 22.000.000", dieta: "Carnívoro (Plumado)", threat: "Nível Alto",
+        desc: "Espécime com penas e habilidades de natação em águas gélidas. Extremamente ágil no gelo.",
+        dna: "PYRO_V1_FEATHER", stability: "94.0%", img: "https://images.unsplash.com/photo-1444464666168-49d633b867ad?w=800",
+        tags: ["PLUMADO", "ADAPTÁVEL", "GELO"]
+    }
+    // ... Continue adicionando conforme necessário seguindo este padrão
+};
         }
     </script>
 </body>
