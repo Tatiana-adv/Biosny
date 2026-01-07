@@ -113,141 +113,65 @@
     </main>
 
     <script>
-        // BANCO DE DADOS DOS DINOSSAUROS
-        const dinos = {
-            "trex": {
-                id: "#001",
-                nome: "Tyrannosaurus Rex",
-                preco: "$ 45.000.000",
-                dieta: "Carnívoro (Apex)",
-                threat: "Nível Máximo",
-                desc: "O T-Rex da Biosyn é recriado com 98% de pureza genética. Possui musculatura reforçada e glândulas supra-renais modificadas para maior resistência em combate. Requer contenção Classe S com cercas eletrificadas de 10.000 volts.",
-                dna: "T-REX_GEN_98.4_ALPHA_STABLE_VERSION_2.1",
-                stability: "98.4%",
-                img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800",
-                tags: ["GIGANTE", "TERRESTRE", "DOMINANTE"]
-            },
-            "raptor": {
-                id: "#002",
-                nome: "Velociraptor",
-                preco: "$ 18.200.000",
-                dieta: "Carnívoro (Social)",
-                threat: "Nível Crítico",
-                desc: "Espécimes extremamente inteligentes. Desenvolveram linguagem própria de comunicação. Estes ativos são ideais para vigilância de perímetro, mas exigem um treinador Alpha qualificado. Capacidade de saltar até 4 metros de altura.",
-                dna: "V-RAPTOR_INTEL_MOD_X44_STABLE",
-                stability: "94.1%",
-                img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800",
-                tags: ["INTELIGENTE", "VELOZ", "ALFA"]
-            },
-            "mosasaurus": {
-                id: "#003",
-                nome: "Mosasaurus",
-                preco: "$ 62.000.000",
-                dieta: "Carnívoro (Aquático)",
-                threat: "Nível Máximo",
-                desc: "O maior ativo aquático disponível. Este mosassauro foi modificado para suportar diversas temperaturas de água. Sua mordida pode esmagar concreto e aço. Necessita de um tanque de contenção com filtragem contínua de 15 milhões de litros.",
-                dna: "MOSA_AQUA_FORCE_GEN_V3",
-                stability: "99.0%",
-                img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800",
-                tags: ["AQUÁTICO", "GIGANTE", "SOLITÁRIO"]
-            }
-        };
-
-        // LÓGICA PARA CARREGAR OS DADOS DA URL
-        const params = new URLSearchParams(window.location.search);
-        const dinoId = params.get('dino');
-
-        if (dinos[dinoId]) {
-            const d = dinos[dinoId];
-            document.getElementById('dino-name').innerText = d.nome;
-            document.getElementById('dino-code').innerText = d.id;
-            document.getElementById('dino-price').innerText = d.preco;
-            document.getElementById('dino-desc').innerText = d.desc;
-            document.getElementById('dino-diet').innerText = d.dieta;
-            document.getElementById('dino-threat').innerText = d.threat;
-            document.getElementById('dino-stability').innerText = d.stability;
-            document.getElementById('dino-dna').innerText = d.dna;
-            document.getElementById('dino-img').src = d.img;
-            document.getElementById('dna-bar').style.width = d.stability;
-
-            // Gerar Tags
-            const tagContainer = document.getElementById('dino-tags');
-            d.tags.forEach(t => {
-                const span = document.createElement('span');
-                span.className = "bg-blue-900/30 text-blue-400 text-[10px] px-2 py-1 border border-blue-500/30 rounded";
-                span.innerText = t;
-                tagContainer.appendChild(span);
-            });
-        } else {
-            document.body.innerHTML = "<h1 class='text-center mt-20 text-red-500'>ERRO: ATIVO NÃO ENCONTRADO NO BANCO DE DADOS</h1>";
-        }
-
-        function fazerLance() {
-            const valor = document.getElementById('bid-input').value;
-            if (valor) {
-                alert(`LANCE DE $${valor} REGISTRADO COM SUCESSO!\n\nProtocolo: BIOSYN-${Math.floor(Math.random() * 999999)}`);
-            } else {
-                alert("Por favor, insira um valor válido.");
-            }
-
-         // O BANCO DE DADOS COMPLETO (30 Espécimes)
-const dinos = {
-    // HÍBRIDOS
-    "indominus": { nome: "Indominus Rex", preco: "$ 340.000.000", dieta: "Carnívoro (Híbrido)", threat: "Extremo", dna: "I-REX_GEN_2", stability: "75%", desc: "O ativo mais letal da Biosyn. Possui camuflagem térmica e inteligência tática avançada." },
-    "indoraptor": { nome: "Indoraptor", preco: "$ 210.000.000", dieta: "Carnívoro (Arma)", threat: "Extremo", dna: "I-RAPTOR_V2", stability: "60%", desc: "Protótipo de arma biológica. Responde a sinais acústicos e laser." },
-    "scorpius": { nome: "Scorpius Rex", preco: "$ 150.000.000", dieta: "Carnívoro", threat: "Extremo", dna: "S-REX_E750", stability: "40%", desc: "Primeiro híbrido instável. Possui espinhos venenosos funcionais." },
-    "spinoceratops": { nome: "Spinoceratops", preco: "$ 85.000.000", dieta: "Onívoro", threat: "Alto", dna: "SPINO-CERA_V1", stability: "90%", desc: "Híbrido de Spinosaurus e Sinoceratops. Resistência extrema." },
-    "ankylodocus": { nome: "Ankylodocus", preco: "$ 90.000.000", dieta: "Herbívoro", threat: "Médio", dna: "ANKY-DOCUS_GEN", stability: "95%", desc: "Fusão de couraça defensiva com pescoço longo." },
-
-    // CARNÍVOROS
-    "trex": { nome: "Tyrannosaurus Rex", preco: "$ 45.000.000", dieta: "Carnívoro", threat: "Máximo", dna: "T-REX_001", stability: "98%", desc: "O predador Alfa original. Força de mordida inigualável." },
-    "spino": { nome: "Spinosaurus", preco: "$ 55.000.000", dieta: "Piscívoro/Carnívoro", threat: "Máximo", dna: "SPINO_EGY_V3", stability: "91%", desc: "O maior carnívoro terrestre já registrado. Semi-aquático." },
-    "giga": { nome: "Giganotosaurus", preco: "$ 52.000.000", dieta: "Carnívoro", threat: "Máximo", dna: "GIGA_BS_GEN", stability: "99%", desc: "Predador dominante da Biosyn Valley. Supera o T-Rex em tamanho." },
-    "blue": { nome: "Blue (Raptor)", preco: "$ 25.000.000", dieta: "Carnívoro", threat: "Alto", dna: "V-RAPTOR_B_MOD", stability: "94%", desc: "Espécime único com DNA de lagarto-monitor. Alta empatia e inteligência." },
-    "carnotaurus": { nome: "Carnotaurus", preco: "$ 25.000.000", dieta: "Carnívoro", threat: "Alto", dna: "CARNO_GEN_2", stability: "95%", desc: "Conhecido como 'Touro Carnívoro'. Extremamente veloz em linha reta." },
-    "allosaurus": { nome: "Allosaurus", preco: "$ 22.000.000", dieta: "Carnívoro", threat: "Alto", dna: "ALLO_JUR_V4", stability: "96%", desc: "Leão do período Jurássico. Caçador coordenado." },
-    "baryonyx": { nome: "Baryonyx", preco: "$ 18.000.000", dieta: "Piscívoro", threat: "Alto", dna: "BARY_GEN_V2", stability: "93%", desc: "Especialista em pântanos e rios. Garras em forma de foice." },
-    "pyro": { nome: "Pyroraptor", preco: "$ 22.000.000", dieta: "Carnívoro", threat: "Alto", dna: "PYRO_V1_PLUME", stability: "94%", desc: "Espécime plumado capaz de nadar em águas congelantes." },
-    "dilo": { nome: "Dilophosaurus", preco: "$ 12.000.000", dieta: "Carnívoro", threat: "Médio", dna: "DILO_ISLA_MOD", stability: "89%", desc: "Cospe veneno paralisante. Possui crista retrátil intimidadora." },
-    "ceratosaurus": { nome: "Ceratosaurus", preco: "$ 18.000.000", dieta: "Carnívoro", threat: "Alto", dna: "CERA_GEN_V3", stability: "97%", desc: "Chifre nasal proeminente. Um competidor feroz para outros carnívoros." },
-    "atrociraptor": { nome: "Atrociraptor", preco: "$ 15.000.000", dieta: "Carnívoro", threat: "Alto", dna: "ATRO_GEN_RED", stability: "95%", desc: "Raptores modificados para rastreio persistente. Não param até abater a presa." },
-
-    // AQUÁTICOS / VOADORES
-    "mosasaurus": { nome: "Mosasaurus", preco: "$ 62.000.000", dieta: "Carnívoro Aquático", threat: "Máximo", dna: "MOSA_V1_JW", stability: "99%", desc: "Apex do oceano. Capaz de devorar tubarões e pequenos barcos." },
-    "quetzal": { nome: "Quetzalcoatlus", preco: "$ 48.000.000", dieta: "Carnívoro Voador", threat: "Máximo", dna: "QUETZ_DOM_V1", stability: "98%", desc: "O tamanho de um avião. Domina os céus com facilidade." },
-    "ptera": { nome: "Pteranodon", preco: "$ 12.000.000", dieta: "Piscívoro", threat: "Alto", dna: "PTERA_V2", stability: "93%", desc: "Réptil voador clássico. Altamente territorial." },
-    "dimorphodon": { nome: "Dimorphodon", preco: "$ 5.000.000", dieta: "Piscívoro", threat: "Médio", dna: "DIMOR_V2", stability: "95%", desc: "Pequeno, mas com mordida poderosa. Atacam em grandes grupos." },
-    "plesio": { nome: "Plesiosaurus", preco: "$ 25.000.000", dieta: "Piscívoro", threat: "Médio", dna: "PLESIO_AQUA", stability: "96%", desc: "Pescoço longo ideal para caça furtiva subaquática." },
-
-    // HERBÍVOROS
-    "therizino": { nome: "Therizinosaurus", preco: "$ 38.000.000", dieta: "Herbívoro", threat: "Crítico", dna: "THERIZ_G_V1", stability: "98%", desc: "Garras gigantescas. Apesar de herbívoro, é um dos mais agressivos." },
-    "brachiosaurus": { nome: "Brachiosaurus", preco: "$ 35.000.000", dieta: "Herbívoro", threat: "Baixo", dna: "BRACH_GEN_1", stability: "99%", desc: "O gigante da Isla Nublar. Ativo imponente e calmo." },
-    "triceratops": { nome: "Triceratops", preco: "$ 15.000.000", dieta: "Herbívoro", threat: "Médio", dna: "TRIKE_V2", stability: "97%", desc: "Tanque vivo com três chifres frontais. Muito territorial." },
-    "ankylosaurus": { nome: "Ankylosaurus", preco: "$ 20.000.000", dieta: "Herbívoro", threat: "Médio", dna: "ANKY_V4", stability: "99%", desc: "Defesa impenetrável. Cauda armada com clava óssea." },
-    "stego": { nome: "Stegosaurus", preco: "$ 14.000.000", dieta: "Herbívoro", threat: "Médio", dna: "STEGO_V2", stability: "98%", desc: "Placas dorsais para termorregulação e cauda com espigões letais." },
-    "parasaurolophus": { nome: "Parasaurolophus", preco: "$ 12.000.000", dieta: "Herbívoro", threat: "Baixo", dna: "PARA_V3", stability: "99%", desc: "Crista sonora para comunicação a longa distância. Cor bioluminescente." },
-    "apato": { nome: "Apatosaurus", preco: "$ 30.000.000", dieta: "Herbívoro", threat: "Baixo", dna: "APATO_G_1", stability: "99%", desc: "Sauropode colossal. Ativo de manutenção pacífica." },
-    "pachy": { nome: "Pachycephalosaurus", preco: "$ 8.000.000", dieta: "Herbívoro", threat: "Médio", dna: "PACHY_V2", stability: "95%", desc: "Crânio reforçado para ataques de impacto frontal." },
-    "stygimoloch": { nome: "Stygimoloch", preco: "$ 9.000.000", dieta: "Herbívoro", threat: "Médio", dna: "STYGI_V1", stability: "96%", desc: "Similar ao Pachy, mas com chifres ornamentais na parte de trás." }
-};
-
-// FUNÇÃO PARA CARREGAR OS DADOS AUTOMATICAMENTE
-window.onload = function() {
-    // Busca o ID que você clicou no leilão
-    const dinoId = localStorage.getItem('selectedDino');
-    const spec = dinos[dinoId];
-
-    if (spec) {
-        // Preenche os textos no HTML (Certifique-se que as IDs no HTML são estas)
-        document.getElementById('dino-nome').innerText = spec.nome;
-        document.getElementById('dino-preco').innerText = spec.preco;
-        document.getElementById('dino-dieta').innerText = spec.dieta;
-        document.getElementById('dino-threat').innerText = spec.threat;
-        document.getElementById('dino-dna').innerText = spec.dna;
-        document.getElementById('dino-stability').innerText = spec.stability;
-        document.getElementById('dino-desc').innerText = spec.desc;
-    } else {
-        // Se algo der errado, avisa
-        document.body.innerHTML = "<div class='text-center p-20 text-white'><h1>ACESSO NEGADO: ATIVO NÃO LOCALIZADO NO BANCO BIOSYN.</h1><a href='leilao.html' class='text-blue-500 underline'>Retornar ao Terminal</a></div>";
+      const dinos = {
+    "trex": { 
+        id: "#001", nome: "Tyrannosaurus Rex", preco: "$ 45.000.000", dieta: "Carnívoro", threat: "Nível Máximo", 
+        dna: "T-REX_GEN_98.4_ALPHA", stability: "98.4%", tags: ["GIGANTE", "TERRESTRE"], 
+        img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800",
+        desc: "O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa." 
+    },
+    "raptor": { 
+        id: "#002", nome: "Velociraptor", preco: "$ 18.200.000", dieta: "Carnívoro (Social)", threat: "Nível Crítico", 
+        dna: "V-RAPTOR_INTEL_MOD", stability: "94.1%", tags: ["INTELIGENTE", "VELOZ"], 
+        img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800",
+        desc: "Inteligência tática nível Alfa. Velocidade de ataque superior a 60km/h." 
+    },
+    "indominus": { 
+        id: "#H-001", nome: "Indominus Rex", preco: "$ 340.000.000", dieta: "Híbrido", threat: "Extremo", 
+        dna: "I-REX_GEN_2", stability: "75%", tags: ["HÍBRIDO", "LETAL"], 
+        img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800",
+        desc: "Híbrido experimental. Capacidade de camuflagem térmica e inteligência superior." 
+    },
+    "indoraptor": { 
+        id: "#H-002", nome: "Indoraptor", preco: "$ 210.000.000", dieta: "Híbrido", threat: "Extremo", 
+        dna: "I-RAPTOR_V2", stability: "60%", tags: ["HÍBRIDO", "AGRESSIVO"], 
+        img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800",
+        desc: "Protótipo de arma biológica. Responde a sinalização a laser e comandos acústicos." 
+    },
+    "spino": { 
+        id: "#003", nome: "Spinosaurus", preco: "$ 55.000.000", dieta: "Carnívoro", threat: "Nível Máximo", 
+        dna: "SPINO_EGY_V3", stability: "91%", tags: ["AQUÁTICO", "GIGANTE"], 
+        img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800",
+        desc: "O maior carnívoro terrestre registrado. Excelente nadador e caçador fluvial." 
+    },
+    "mosasaurus": { 
+        id: "#A-001", nome: "Mosasaurus", preco: "$ 62.000.000", dieta: "Aquático", threat: "Nível Máximo", 
+        dna: "MOSA_V1_JW", stability: "99%", tags: ["AQUÁTICO", "GIGANTE"], 
+        img: "https://images.unsplash.com/photo-1599388144800-845722f47029?w=800",
+        desc: "Gigante oceânico. Requer tanque de contenção nível 10 com filtragem de alta pressão." 
+    },
+    "quetzal": { 
+        id: "#V-001", nome: "Quetzalcoatlus", preco: "$ 48.000.000", dieta: "Carnívoro", threat: "Nível Máximo", 
+        dna: "QUETZ_DOM_V1", stability: "98%", tags: ["VOADOR", "GIGANTE"], 
+        img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800",
+        desc: "Maior animal voador da história. Envergadura comparável a um jato executivo." 
+    },
+    "giga": { 
+        id: "#004", nome: "Giganotosaurus", preco: "$ 52.000.000", dieta: "Carnívoro", threat: "Nível Máximo", 
+        dna: "GIGA_BS_GEN", stability: "99%", tags: ["DOMINANTE", "GIGANTE"], 
+        img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800",
+        desc: "Predador massivo. Supera o T-Rex em comprimento total. Altamente agressivo." 
+    },
+    "scorpius": { 
+        id: "#H-003", nome: "Scorpius Rex", preco: "$ 150.000.000", dieta: "Híbrido", threat: "Extremo", 
+        dna: "S-REX_E750", stability: "40%", tags: ["HÍBRIDO", "INSTÁVEL"], 
+        img: "https://images.unsplash.com/photo-1550352934-2e2936780c10?w=800",
+        desc: "O primeiro híbrido instável. Possui espinhos venenosos e agilidade anormal." 
+    },
+    "therizino": { 
+        id: "#022", nome: "Therizinosaurus", preco: "$ 38.000.000", dieta: "Herbívoro", threat: "Nível Crítico", 
+        dna: "THERIZ_G_V1", stability: "98%", tags: ["GARRAS", "TERRITORIAL"], 
+        img: "https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800",
+        desc: "Herbívoro territorial. Equipado com garras de 1 metro capazes de perfurar aço." 
     }
-}
+};
