@@ -1,0 +1,64 @@
+<body class="bg-background-dark text-white font-display overflow-hidden select-none">
+    <main class="flex-1 flex flex-col items-center justify-center p-6 relative w-full max-w-[1400px] mx-auto">
+        <div class="flex flex-col items-center justify-center gap-10 w-full max-w-2xl mx-auto z-20">
+            <div class="flex flex-col gap-2 text-center relative group cursor-default">
+                <div class="flex justify-center mb-4">
+                    <span class="material-symbols-outlined text-red-500 text-6xl opacity-80 mb-2">warning</span>
+                </div>
+                <h1 class="glitch-text text-5xl md:text-7xl font-black tracking-[-0.05em] text-white uppercase" data-text="SYSTEM RESTRICTED">
+                    SYSTEM RESTRICTED
+                </h1>
+                <h2 class="text-primary text-sm md:text-base font-mono tracking-[0.3em] uppercase opacity-80 mt-2">
+                    Biological Asset Database // Level 5 Clearance
+                </h2>
+            </div>
+
+            <div class="relative group mt-8">
+                <div class="absolute -inset-1 bg-gradient-to-r from-primary to-[#00d2ff] rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+                <button id="loginBtn" class="relative flex items-center justify-center gap-4 bg-[#101622] hover:bg-primary border border-primary/50 text-white text-lg md:text-xl font-bold tracking-[0.1em] px-12 py-5 rounded-lg overflow-hidden transition-all duration-300 w-full md:w-auto min-w-[300px]">
+                    <span class="material-symbols-outlined z-10">fingerprint</span>
+                    <span class="z-10 relative">ACESSO AUTORIZADO</span>
+                </button>
+            </div>
+
+            <div id="console-log" class="w-full max-w-md mt-12 bg-[#111722]/90 border border-[#232f48] rounded p-4 font-mono text-xs text-[#92a4c9] h-32 overflow-hidden">
+                <div id="log-content" class="flex flex-col gap-1.5">
+                    <div class="flex justify-between text-primary/80"><span>> STANDBY MODE...</span><span>READY</span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const btn = document.getElementById('loginBtn');
+        const logContent = document.getElementById('log-content');
+
+        btn.addEventListener('click', () => {
+            // Efeito visual no botão
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> PROCESSANDO...`;
+            btn.style.opacity = "0.7";
+            btn.disabled = true;
+
+            // Simulação de logs no terminal antes de entrar
+            const logs = [
+                "> VERIFICANDO CREDENCIAIS...",
+                "> ACESSANDO SATÉLITE ISLA NUBLAR...",
+                "> CONEXÃO ESTABELECIDA. REDIRECIONANDO..."
+            ];
+
+            logs.forEach((text, i) => {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = "flex justify-between text-yellow-500";
+                    div.innerHTML = `<span>${text}</span><span>OK</span>`;
+                    logContent.appendChild(div);
+                }, i * 500);
+            });
+
+            // Redireciona após os logs
+            setTimeout(() => {
+                window.location.href = "leilao.html";
+            }, 2000);
+        });
+    </script>
+</body>
