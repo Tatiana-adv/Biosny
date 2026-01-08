@@ -1,42 +1,23 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="dark" lang="pt-br">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Asset Profile // Biosyn Genetics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet"/>
     <style>
-        .scanlines {
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
-            background-size: 100% 4px;
-            position: absolute; inset: 0; pointer-events: none; z-index: 10;
-        }
+        .scanlines { background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1)); background-size: 100% 4px; position: absolute; inset: 0; pointer-events: none; z-index: 10; }
         .crt-flicker { animation: flicker 0.15s infinite; }
         @keyframes flicker { 0% { opacity: 0.99; } 50% { opacity: 1; } 100% { opacity: 0.98; } }
         .bg-grid { background-image: linear-gradient(to right, #232f48 1px, transparent 1px), linear-gradient(to bottom, #232f48 1px, transparent 1px); background-size: 30px 30px; }
-        
         .price-up { animation: flashGreen 1s ease-out; }
         @keyframes flashGreen { 0% { color: #4ade80; text-shadow: 0 0 10px #4ade80; } 100% { color: #22c55e; } }
-
-        /* Estilo da Mensagem de Alerta do Bilionário */
-        #billionaire-alert {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.9);
-            border-left: 4px solid #3b82f6;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            animation: slideIn 0.5s ease-out;
-        }
+        #billionaire-alert { display: none; position: fixed; top: 80px; right: 20px; z-index: 100; background: rgba(0, 0, 0, 0.9); border-left: 4px solid #3b82f6; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: slideIn 0.5s ease-out; }
         @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     </style>
 </head>
-
 <body class="bg-[#0c1018] text-white font-display overflow-x-hidden select-none">
     <div class="fixed inset-0 z-0 bg-grid opacity-10"></div>
     <div class="scanlines opacity-20"></div>
@@ -45,9 +26,9 @@
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-blue-400">account_balance_wallet</span>
-                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Saldo Biosyn</span>
+                <span class="text-[10px] font-mono text-slate-500 uppercase">Saldo Biosyn Atual</span>
             </div>
-            <div class="text-2xl font-black text-blue-400 font-mono" id="user-balance">$ 500.000.000</div>
+            <div class="text-2xl font-black text-blue-400 font-mono" id="user-balance">$ 0</div>
         </div>
     </div>
 
@@ -55,7 +36,7 @@
         <div class="flex items-center gap-3">
             <span class="material-symbols-outlined text-blue-500 animate-pulse">monitoring</span>
             <div>
-                <p class="text-[10px] text-blue-500 font-mono uppercase tracking-tighter">Nova oferta recebida</p>
+                <p class="text-[10px] text-blue-500 font-mono uppercase">Oferta de Mercado</p>
                 <p id="alert-msg" class="text-sm font-bold"></p>
             </div>
         </div>
@@ -70,71 +51,54 @@
 
         <div class="w-full max-w-6xl bg-[#111722]/90 border border-blue-900/50 rounded-lg overflow-hidden crt-flicker shadow-2xl">
             <div class="grid grid-cols-1 lg:grid-cols-2">
-                
-                <div class="p-8 border-b lg:border-b-0 lg:border-r border-blue-900/30 bg-black/20">
-                    <div class="relative group">
-                        <div class="absolute inset-0 border-2 border-blue-500/20 group-hover:border-blue-500/50 transition-all"></div>
-                        <img id="dino-img" src="" alt="Asset" class="w-full h-[400px] object-cover grayscale hover:grayscale-0 transition-all duration-700">
-                        <div class="absolute bottom-4 right-4 bg-red-600 text-[10px] font-bold px-3 py-1 animate-pulse">
-                            TOP SECRET // LEVEL 5
+                <div class="p-8 border-r border-blue-900/30 bg-black/20">
+                    <img id="dino-img" src="" class="w-full h-[400px] object-cover grayscale hover:grayscale-0 transition-all duration-700 rounded border border-blue-500/30">
+                    <div class="mt-6">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-[10px] text-slate-500 uppercase font-mono">Estabilidade Genética</span>
+                            <span id="dino-stability" class="text-[10px] text-blue-400">0%</span>
                         </div>
-                    </div>
-
-                    <div class="mt-8 space-y-4">
-                        <h4 class="text-blue-500 font-mono text-xs tracking-widest uppercase">Análise de Sequenciamento DNA</h4>
-                        <div class="bg-black/40 p-4 border border-blue-900/20 rounded">
-                            <div class="flex justify-between mb-2">
-                                <span class="text-[10px] text-slate-500 uppercase">Estabilidade Genética</span>
-                                <span id="dino-stability" class="text-[10px] text-green-400">0%</span>
-                            </div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                                <div id="dna-bar" class="bg-blue-600 h-full w-[0%] transition-all duration-1000"></div>
-                            </div>
-                            <p id="dino-dna" class="text-[10px] font-mono text-blue-300/60 mt-4 break-all italic">---</p>
+                        <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                            <div id="dna-bar" class="bg-blue-600 h-full w-0 transition-all duration-1000"></div>
                         </div>
+                        <p id="dino-dna" class="text-[9px] font-mono text-blue-300/40 mt-4 italic break-all"></p>
                     </div>
                 </div>
 
                 <div class="p-8 flex flex-col">
                     <div class="mb-6">
-                        <span id="dino-code" class="text-blue-500 font-mono text-xs">#ID_UNDEFINED</span>
-                        <h1 id="dino-name" class="text-5xl font-black uppercase tracking-tighter mb-2 italic text-white">---</h1>
-                        <div id="dino-tags" class="flex gap-2 mb-4"></div>
+                        <span id="dino-code" class="text-blue-500 font-mono text-xs">#ID_LOAD</span>
+                        <h1 id="dino-name" class="text-5xl font-black uppercase italic text-white tracking-tighter">---</h1>
+                        <div id="dino-tags" class="flex gap-2 mt-2"></div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 mb-8">
                         <div class="border border-blue-900/20 p-3 bg-black/20">
-                            <span class="block text-[10px] text-slate-500 uppercase">Dieta</span>
+                            <span class="block text-[10px] text-slate-500 uppercase font-mono">Dieta</span>
                             <span id="dino-diet" class="font-bold text-sm">---</span>
                         </div>
                         <div class="border border-blue-900/20 p-3 bg-black/20">
-                            <span class="block text-[10px] text-slate-500 uppercase">Agressividade</span>
+                            <span class="block text-[10px] text-slate-500 uppercase font-mono">Agressividade</span>
                             <span id="dino-threat" class="font-bold text-sm text-red-500">---</span>
                         </div>
                     </div>
 
-                    <div class="flex-1">
-                        <h4 class="text-blue-500 font-mono text-xs mb-2 uppercase italic">Relatório de Observação</h4>
-                        <p id="dino-desc" class="text-slate-400 text-sm leading-relaxed mb-8">Carregando dados...</p>
-                    </div>
-
+                    <p id="dino-desc" class="text-slate-400 text-sm leading-relaxed mb-10 italic"></p>
+                    
                     <div class="mt-auto border-t border-blue-900/30 pt-8">
                         <div class="flex justify-between items-end mb-6">
                             <div>
-                                <span class="block text-[10px] text-slate-500 font-mono">VALOR ATUAL DO LOTE</span>
-                                <span id="dino-price" class="text-4xl font-black text-green-500">$ 0</span>
+                                <span class="block text-[10px] text-slate-500 font-mono uppercase">Valor Atual do Lote</span>
+                                <span id="dino-price" class="text-4xl font-black text-green-500 font-mono">$ 0</span>
                             </div>
                             <div class="text-right">
-                                <span class="block text-[10px] text-red-500 font-bold animate-pulse uppercase">Leilão em tempo real</span>
                                 <span id="timer-leilao" class="text-xs text-slate-400 font-mono">27:00:00</span>
                             </div>
                         </div>
 
                         <div class="flex gap-2">
-                            <input type="text" id="bid-input" placeholder="Novo Lance (USD)" class="flex-1 bg-black/50 border border-blue-900/50 p-4 rounded text-white font-mono focus:outline-none focus:border-blue-500 transition-all">
-                            <button onclick="fazerLance()" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded font-black tracking-widest transition-all uppercase">
-                                Enviar Lance
-                            </button>
+                            <input type="text" id="bid-input" placeholder="Novo Lance (USD)" class="flex-1 bg-black/50 border border-blue-900/50 p-4 rounded text-white font-mono focus:border-blue-500 outline-none">
+                            <button onclick="fazerLance()" class="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded font-black uppercase tracking-widest transition-all">Enviar Lance</button>
                         </div>
                     </div>
                 </div>
@@ -143,19 +107,11 @@
     </main>
 
     <script>
-        const bilionarios = [
-            "Elon Musk", "Jeff Bezos", "Bernard Arnault", "Warren Buffett", "Mark Zuckerberg",
-            "Larry Ellison", "Larry Page", "Sergey Brin", "Bill Gates", "Carlos Slim",
-            "Mukesh Ambani", "Steve Ballmer", "Michael Bloomberg", "Jim Walton", "Alice Walton",
-            "Rob Walton", "Francoise Bettencourt Meyers", "Amancio Ortega", "Richard Branson",
-            "Dieter Schwarz", "Li Ka-shing", "Sheldon Adelson", "Ingvar Kamprad",
-            "Jorge Paulo Lemann", "Tadashi Yanai", "Zhang Yiming", "Daniel Ek",
-            "Travis Kalanick", "Michael Dell", "Sergey Galitsky"
-        ];
-
+        const bilionarios = ["Elon Musk", "Jeff Bezos", "Warren Buffett", "Bill Gates", "Mark Zuckerberg", "Richard Branson"];
+        
         const dinosSpecs = {
-            "trex": { id: "#001", nome: "Tyrannosaurus Rex", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98.4%", dna: "T-REX_GEN_98.4_ALPHA", desc: "O rei dos predadores. Força de mordida inigualável.", tags: ["GIGANTE", "TERRESTRE"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/tiranossauro%20detalhes.jpg?raw=true" },
-            "raptor": { id: "#002", nome: "Velociraptor", dieta: "Carnívoro (Social)", threat: "Nível Crítico", stability: "94.1%", dna: "V-RAPTOR_INTEL_MOD", desc: "Inteligência tática nível Alfa.", tags: ["INTELIGENTE", "VELOZ"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/velo%20detalhes.jpg?raw=true" },
+            "trex": { id: "#001", nome: "Tyrannosaurus Rex", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98.4%", dna: "T-REX_GEN_ALPHA", desc: "O rei dos predadores. Força de mordida inigualável.", tags: ["GIGANTE", "TERRESTRE"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/tiranossauro%20detalhes.jpg?raw=true" },
+            "raptor": { id: "#002", nome: "Velociraptor", dieta: "Carnívoro (Social)", threat: "Nível Crítico", stability: "94.1%", dna: "V-RAPTOR_INTEL", desc: "Inteligência tática nível Alfa.", tags: ["INTELIGENTE", "VELOZ"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/velo%20detalhes.jpg?raw=true" },
             "indominus": { id: "#H-001", nome: "Indominus Rex", dieta: "Híbrido", threat: "Extremo", stability: "75%", dna: "I-REX_GEN_2", desc: "Híbrido experimental. Camuflagem térmica.", tags: ["HÍBRIDO", "LETAL"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/indominus%20detalhes.jpg?raw=true" },
             "indoraptor": { id: "#H-002", nome: "Indoraptor", dieta: "Híbrido", threat: "Extremo", stability: "60%", dna: "I-RAPTOR_V2", desc: "Protótipo de arma biológica.", tags: ["HÍBRIDO", "AGRESSIVO"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/indoraptor%20detalhes.jpg?raw=true" },
             "spino": { id: "#003", nome: "Spinosaurus", dieta: "Carnívoro", threat: "Nível Máximo", stability: "91%", dna: "SPINO_EGY_V3", desc: "O maior carnívoro terrestre registrado.", tags: ["AQUÁTICO", "GIGANTE"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/espinossauro%20detalhes.jpg?raw=true" },
@@ -167,17 +123,12 @@
         };
 
         const dinoId = localStorage.getItem('selectedDino') || 'trex';
-        let saldoUsuario = 500000000;
-        let tempoTotal = 27 * 3600; // 27 Horas
-
-        function formatarMoeda(valor) {
-            return valor.toLocaleString('de-DE');
-        }
+        let tempoTotal = 27 * 3600;
 
         function atualizarTela() {
-            const precosAtuais = JSON.parse(localStorage.getItem('precosDinos'));
+            const precos = JSON.parse(localStorage.getItem('precosDinos'));
+            const saldo = parseInt(localStorage.getItem('saldoBiosyn'));
             const spec = dinosSpecs[dinoId];
-            const precoValor = precosAtuais[dinoId];
 
             document.getElementById('dino-name').innerText = spec.nome;
             document.getElementById('dino-code').innerText = spec.id;
@@ -188,90 +139,51 @@
             document.getElementById('dino-dna').innerText = spec.dna;
             document.getElementById('dino-stability').innerText = spec.stability;
             document.getElementById('dna-bar').style.width = spec.stability;
-            document.getElementById('user-balance').innerText = "$ " + formatarMoeda(saldoUsuario);
-
-            const precoElemento = document.getElementById('dino-price');
-            precoElemento.innerText = "$ " + formatarMoeda(precoValor);
+            document.getElementById('user-balance').innerText = "$ " + saldo.toLocaleString('de-DE');
+            document.getElementById('dino-price').innerText = "$ " + precos[dinoId].toLocaleString('de-DE');
 
             const tagContainer = document.getElementById('dino-tags');
-            tagContainer.innerHTML = "";
-            spec.tags.forEach(t => {
-                const span = document.createElement('span');
-                span.className = "bg-blue-900/30 text-blue-400 text-[10px] px-2 py-1 border border-blue-500/30 rounded font-bold uppercase";
-                span.innerText = t;
-                tagContainer.appendChild(span);
-            });
-        }
-
-        function mostrarAlerta(nome, valor) {
-            const alerta = document.getElementById('billionaire-alert');
-            const msg = document.getElementById('alert-msg');
-            msg.innerText = `${nome} Deu lançe de $ ${formatarMoeda(valor)} milhões`;
-            alerta.style.display = 'block';
-            
-            setTimeout(() => {
-                alerta.style.display = 'none';
-            }, 5000);
-        }
-
-        function lanceAutomaticoBot() {
-            let precos = JSON.parse(localStorage.getItem('precosDinos'));
-            const bilionario = bilionarios[Math.floor(Math.random() * bilionarios.length)];
-            const aumento = (Math.floor(Math.random() * 8) + 2) * 1000000;
-            
-            precos[dinoId] += aumento;
-            localStorage.setItem('precosDinos', JSON.stringify(precos));
-            
-            atualizarTela();
-            mostrarAlerta(bilionario, precos[dinoId]);
-
-            document.getElementById('dino-price').classList.add('price-up');
-            setTimeout(() => document.getElementById('dino-price').classList.remove('price-up'), 1000);
+            tagContainer.innerHTML = spec.tags.map(t => `<span class="bg-blue-900/30 text-blue-400 text-[10px] px-2 py-1 border border-blue-500/30 rounded font-bold uppercase">${t}</span>`).join('');
         }
 
         function fazerLance() {
             const input = document.getElementById('bid-input');
             const valorLance = parseInt(input.value.replace(/\D/g, ""));
             let precos = JSON.parse(localStorage.getItem('precosDinos'));
+            let saldo = parseInt(localStorage.getItem('saldoBiosyn'));
 
-            if (valorLance > saldoUsuario) {
-                alert("SALDO INSUFICIENTE!");
-                return;
-            }
-
+            if (valorLance > saldo) { alert("SALDO INSUFICIENTE!"); return; }
             if (valorLance > precos[dinoId]) {
-                saldoUsuario -= valorLance; // Deduz do saldo
+                saldo -= valorLance;
+                localStorage.setItem('saldoBiosyn', saldo.toString());
                 precos[dinoId] = valorLance;
                 localStorage.setItem('precosDinos', JSON.stringify(precos));
                 atualizarTela();
                 input.value = "";
-                
-                // Bot reage rápido se o usuário der lance
-                setTimeout(lanceAutomaticoBot, 3000);
-            } else {
-                alert("O lance deve ser maior que o valor atual!");
-            }
+                setTimeout(lanceBot, 3000);
+            } else { alert("Lance deve ser maior que o atual!"); }
         }
 
-        // Timer
-        setInterval(() => {
-            if (tempoTotal > 0) {
-                tempoTotal--;
-                const h = Math.floor(tempoTotal / 3600);
-                const m = Math.floor((tempoTotal % 3600) / 60);
-                const s = tempoTotal % 60;
-                document.getElementById('timer-leilao').innerText = 
-                    `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-            }
-        }, 1000);
+        function lanceBot() {
+            let precos = JSON.parse(localStorage.getItem('precosDinos'));
+            const b = bilionarios[Math.floor(Math.random() * bilionarios.length)];
+            const aumento = (Math.floor(Math.random() * 8) + 2) * 1000000;
+            precos[dinoId] += aumento;
+            localStorage.setItem('precosDinos', JSON.stringify(precos));
+            atualizarTela();
+            
+            document.getElementById('alert-msg').innerText = `${b} deu lance de $ ${precos[dinoId].toLocaleString('de-DE')}`;
+            document.getElementById('billionaire-alert').style.display = 'block';
+            setTimeout(() => document.getElementById('billionaire-alert').style.display = 'none', 4000);
+        }
 
-        document.getElementById('bid-input').addEventListener('input', function(e) {
+        document.getElementById('bid-input').addEventListener('input', e => {
             let v = e.target.value.replace(/\D/g, "");
             if(v) e.target.value = parseInt(v).toLocaleString('de-DE');
         });
 
         window.onload = atualizarTela;
-        setInterval(lanceAutomaticoBot, 30000);
+        setInterval(lanceBot, 30000);
     </script>
 </body>
 </html>
