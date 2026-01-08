@@ -9,84 +9,81 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
     <style>
+        /* FUNDO LIMPO ESTILO ORIGINAL */
         .bg-biosyn {
-            background-color: #0a0e17;
+            background-color: #06090f;
+            /* Grid de micro-pontos e linhas sutis */
             background-image: 
-                linear-gradient(to right, rgba(35, 47, 72, 0.2) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(35, 47, 72, 0.2) 1px, transparent 1px);
-            background-size: 40px 40px;
+                radial-gradient(rgba(19, 91, 236, 0.15) 1px, transparent 1px),
+                linear-gradient(to right, rgba(35, 47, 72, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(35, 47, 72, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px, 90px 90px, 90px 90px;
             position: relative;
         }
 
-        /* Hexágonos de fundo mais visíveis conforme imagem antiga */
-        .bg-biosyn::before {
+        /* Vinheta para escurecer as bordas */
+        .bg-biosyn::after {
             content: "";
             position: absolute;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='173.2' viewBox='0 0 100 173.2'%3E%3Cpath d='M25 0 L75 0 L100 43.3 L100 129.9 L75 173.2 L25 173.2 L0 129.9 L0 43.3 Z' fill='none' stroke='rgba(19, 91, 236, 0.12)' stroke-width='1.5'/%3E%3C/svg%3E");
-            background-size: 300px 520px;
+            background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(6, 9, 15, 0.8) 100%);
             pointer-events: none;
         }
 
-        /* EFEITO LED NO BOTÃO (Box Shadow Neon) */
+        /* LED NEON NO BOTÃO */
         .btn-led {
-            box-shadow: 0 0 15px rgba(19, 91, 236, 0.4), inset 0 0 10px rgba(19, 91, 236, 0.2);
-            transition: all 0.4s ease;
+            box-shadow: 0 0 20px rgba(19, 91, 236, 0.3), inset 0 0 12px rgba(19, 91, 236, 0.1);
             position: relative;
+            z-index: 10;
         }
 
-        .btn-led::after {
+        .btn-led::before {
             content: '';
             position: absolute;
-            inset: -2px;
-            border-radius: 8px;
-            background: linear-gradient(45deg, transparent, rgba(19, 91, 236, 0.3), transparent);
+            inset: -4px;
+            border-radius: 12px;
+            background: rgba(19, 91, 236, 0.15);
+            filter: blur(15px);
             z-index: -1;
-            filter: blur(8px);
-            animation: led-pulse 3s infinite;
+            animation: pulse-glow 4s infinite ease-in-out;
         }
 
-        @keyframes led-pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
 
-        /* Glitch Limpo e Lento */
+        /* GLITCH LIMPO E LENTO (SEM ROSA) */
         .glitch-clean {
             position: relative;
             color: white;
-            animation: shake 3s infinite;
         }
         
         .glitch-clean::before, .glitch-clean::after {
             content: attr(data-text);
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0a0e17; color: white; clip: rect(0, 0, 0, 0);
+            background: #06090f; color: white; clip: rect(0, 0, 0, 0);
         }
 
         .glitch-clean::before {
             left: 2px;
-            animation: glitch-anim 5s infinite linear alternate-reverse;
+            animation: glitch-anim 6s infinite linear alternate-reverse;
         }
         
         @keyframes glitch-anim {
-            0% { clip: rect(10px, 9999px, 20px, 0); transform: translateX(-2px); }
-            2% { clip: rect(40px, 9999px, 42px, 0); transform: translateX(2px); }
-            4% { clip: rect(0,0,0,0); }
+            0% { clip: rect(20px, 9999px, 21px, 0); transform: translateX(-2px); }
+            1% { clip: rect(50px, 9999px, 52px, 0); transform: translateX(2px); }
+            2% { clip: rect(0,0,0,0); }
             100% { clip: rect(0,0,0,0); }
         }
 
-        @keyframes shake {
-            0%, 98%, 100% { transform: translate(0); }
-            99% { transform: translate(-1px, 1px); }
-        }
-
+        /* LINHA AZUL DE SCAN (LASER) */
         .scanline {
-            position: fixed; top: -10%; left: 0; width: 100%; height: 2px;
-            background: rgba(19, 91, 236, 0.4);
-            box-shadow: 0 0 15px 1px rgba(19, 91, 236, 0.3);
-            animation: scan 5s linear infinite;
-            z-index: 5;
+            position: fixed; top: -10%; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(19, 91, 236, 0.8), transparent);
+            box-shadow: 0 0 12px 1px rgba(19, 91, 236, 0.5);
+            animation: scan 7s linear infinite;
+            z-index: 50;
         }
 
         @keyframes scan {
@@ -95,76 +92,76 @@
         }
     </style>
 </head>
-<body class="bg-biosyn text-white font-display overflow-hidden select-none">
+<body class="bg-biosyn text-white font-display h-screen overflow-hidden select-none">
 
     <div class="scanline"></div>
 
-    <div class="relative z-20 flex flex-col h-screen w-full">
+    <div class="relative z-20 flex flex-col h-full w-full">
         
-        <header class="flex items-center justify-between border-b border-blue-900/30 bg-[#0a0e17]/80 px-6 py-3 border-t-4 border-[#135bec] backdrop-blur-sm">
-            <div class="flex items-center gap-3">
+        <header class="flex items-center justify-between border-b border-blue-900/20 bg-[#06090f]/80 px-8 py-4 border-t-4 border-[#135bec] backdrop-blur-md">
+            <div class="flex items-center gap-4">
                 <span class="material-symbols-outlined text-[#135bec] text-3xl">genetics</span>
                 <div>
-                    <h2 class="text-white text-lg font-bold tracking-[2px] leading-tight">BIOSYN GENETICS</h2>
-                    <p class="text-[9px] text-blue-400/60 uppercase tracking-[4px]">Secure Terminal V.9.0.2</p>
+                    <h2 class="text-white text-lg font-bold tracking-[3px] leading-tight">BIOSYN GENETICS</h2>
+                    <p class="text-[9px] text-blue-400/50 uppercase tracking-[4px]">Secure Terminal V.9.0.2</p>
                 </div>
             </div>
-            <div class="flex items-center gap-6">
-                <div class="text-right text-[10px] text-[#4e5d78] font-mono">
+            <div class="flex items-center gap-8">
+                <div class="text-right text-[10px] text-slate-500 font-mono tracking-tighter">
                     LAT: 34.0522 N<br>LNG: 118.2437 W
                 </div>
-                <div class="flex items-center gap-2 bg-[#1a2333] border border-red-500/40 px-3 py-1.5 rounded">
-                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_red]"></span>
-                    <span class="text-[11px] font-bold text-red-100 uppercase">Status: Locked</span>
+                <div class="flex items-center gap-3 bg-[#0d131f] border border-red-500/30 px-4 py-2 rounded shadow-inner">
+                    <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.8)]"></span>
+                    <span class="text-[11px] font-bold text-red-500 uppercase tracking-widest">Status: Locked</span>
                 </div>
             </div>
         </header>
 
         <main class="flex-1 flex flex-col items-center justify-center p-6 text-center">
             
-            <div class="mb-12">
-                <span class="material-symbols-outlined text-red-500 text-6xl mb-6 opacity-80">warning</span>
-                <h1 class="glitch-clean text-5xl md:text-[80px] font-black uppercase tracking-[-2px] leading-none" data-text="SYSTEM RESTRICTED">
+            <div class="mb-16">
+                <span class="material-symbols-outlined text-red-600 text-7xl mb-8 opacity-90 drop-shadow-[0_0_20px_rgba(220,38,38,0.3)]">warning</span>
+                <h1 class="glitch-clean text-6xl md:text-[90px] font-black uppercase tracking-tight leading-none" data-text="SYSTEM RESTRICTED">
                     SYSTEM RESTRICTED
                 </h1>
-                <p class="text-[#135bec] tracking-[8px] text-xs md:text-sm mt-6 font-bold opacity-70 uppercase">
+                <p class="text-[#135bec] tracking-[10px] text-sm mt-8 font-bold opacity-60 uppercase">
                     Biological Asset Database // Level 5 Clearance
                 </p>
             </div>
 
-            <div class="relative">
-                <button id="entryBtn" class="btn-led relative bg-[#0a121d] border border-blue-500/30 px-16 py-6 rounded-lg flex items-center gap-5 transition-all duration-300 hover:bg-[#135bec] hover:text-white group">
-                    <span class="material-symbols-outlined text-3xl text-blue-400 group-hover:text-white transition-colors">fingerprint</span>
-                    <span class="text-2xl font-bold tracking-[3px] uppercase">Acesso Autorizado</span>
+            <div class="relative group">
+                <button id="entryBtn" class="btn-led relative bg-[#0a121d] border border-blue-500/20 px-20 py-7 rounded-xl flex items-center gap-6 transition-all duration-500 hover:bg-[#135bec] hover:border-blue-400 group">
+                    <span class="material-symbols-outlined text-4xl text-blue-500 group-hover:text-white transition-colors">fingerprint</span>
+                    <span class="text-2xl font-bold tracking-[4px] uppercase group-hover:text-white">Acesso Autorizado</span>
                 </button>
             </div>
 
-            <div class="w-full max-w-lg mt-16 bg-black/40 border border-blue-900/20 rounded p-5 text-left font-mono text-[11px] text-blue-300/40 backdrop-blur-sm">
-                <div class="space-y-1.5 uppercase">
-                    <div class="flex justify-between"><span>> Initializing Handshake...</span><span class="text-green-500/70">Done</span></div>
-                    <div class="flex justify-between"><span>> Decrypting Genomic Sequences...</span><span class="text-yellow-500/70 animate-pulse">Busy</span></div>
-                    <div class="flex justify-between opacity-30"><span>> Verifying Biometrics...</span><span>Waiting</span></div>
+            <div class="w-full max-w-lg mt-20 bg-black/50 border border-blue-900/10 rounded-lg p-6 text-left font-mono text-[11px] text-blue-300/30 backdrop-blur-sm">
+                <div class="space-y-2 uppercase">
+                    <div class="flex justify-between"><span>> Initializing Handshake...</span><span class="text-green-500/50">Done</span></div>
+                    <div class="flex justify-between"><span>> Decrypting Genomic Sequences...</span><span class="text-yellow-500/50 animate-pulse">Busy</span></div>
+                    <div class="flex justify-between opacity-20"><span>> Verifying Biometrics...</span><span>Waiting</span></div>
                 </div>
-                <div class="mt-5 h-[2px] w-full bg-slate-900 overflow-hidden">
-                    <div class="h-full bg-[#135bec]/60 w-[42%] shadow-[0_0_10px_#135bec]"></div>
+                <div class="mt-6 h-[1px] w-full bg-slate-800">
+                    <div class="h-full bg-[#135bec]/40 w-[42%] shadow-[0_0_15px_#135bec]"></div>
                 </div>
             </div>
 
         </main>
 
-        <footer class="p-4 border-t border-blue-900/10 flex justify-between items-center text-[9px] text-[#4e5d78] font-mono">
-            <p class="uppercase tracking-widest opacity-50">Security Protocol Alpha-9 Enabled</p>
-            <p class="uppercase tracking-[2px] opacity-50">Session: 8X99-22B-OMEGA</p>
+        <footer class="p-6 border-t border-blue-900/5 flex justify-between items-center text-[10px] text-slate-600 font-mono">
+            <p class="uppercase tracking-[3px]">Security Protocol Alpha-9 // Biosyn Proprietary</p>
+            <p class="uppercase tracking-[2px]">Session ID: 8X99-22B-OMEGA</p>
         </footer>
     </div>
 
     <script>
         const btn = document.getElementById('entryBtn');
         btn.addEventListener('click', () => {
-            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> PROCESSANDO...`;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-4xl">sync</span>`;
             setTimeout(() => {
                 window.location.href = "leilao.html";
-            }, 1200);
+            }, 1500);
         });
     </script>
 
