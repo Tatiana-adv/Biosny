@@ -17,15 +17,49 @@
         @keyframes flicker { 0% { opacity: 0.99; } 50% { opacity: 1; } 100% { opacity: 0.98; } }
         .bg-grid { background-image: linear-gradient(to right, #232f48 1px, transparent 1px), linear-gradient(to bottom, #232f48 1px, transparent 1px); background-size: 30px 30px; }
         
-        /* Efeito de brilho quando o preço sobe */
-        .price-up { animation: flash Green 1s ease-out; }
+        .price-up { animation: flashGreen 1s ease-out; }
         @keyframes flashGreen { 0% { color: #4ade80; text-shadow: 0 0 10px #4ade80; } 100% { color: #22c55e; } }
+
+        /* Estilo da Mensagem de Alerta do Bilionário */
+        #billionaire-alert {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     </style>
 </head>
 
 <body class="bg-[#0c1018] text-white font-display overflow-x-hidden select-none">
     <div class="fixed inset-0 z-0 bg-grid opacity-10"></div>
     <div class="scanlines opacity-20"></div>
+
+    <div class="relative z-50 bg-black/80 border-b border-blue-900/50 p-4 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-400">account_balance_wallet</span>
+                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Saldo Biosyn</span>
+            </div>
+            <div class="text-2xl font-black text-blue-400 font-mono" id="user-balance">$ 500.000.000</div>
+        </div>
+    </div>
+
+    <div id="billionaire-alert">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-blue-500 animate-pulse">monitoring</span>
+            <div>
+                <p class="text-[10px] text-blue-500 font-mono uppercase tracking-tighter">Nova oferta recebida</p>
+                <p id="alert-msg" class="text-sm font-bold"></p>
+            </div>
+        </div>
+    </div>
 
     <main class="relative z-20 min-h-screen p-4 md:p-10 flex flex-col items-center">
         <div class="w-full max-w-6xl mb-6">
@@ -92,7 +126,7 @@
                             </div>
                             <div class="text-right">
                                 <span class="block text-[10px] text-red-500 font-bold animate-pulse uppercase">Leilão em tempo real</span>
-                                <span id="timer-leilao" class="text-xs text-slate-400 font-mono">Expira em: 00:59:59</span>
+                                <span id="timer-leilao" class="text-xs text-slate-400 font-mono">27:00:00</span>
                             </div>
                         </div>
 
@@ -109,6 +143,16 @@
     </main>
 
     <script>
+        const bilionarios = [
+            "Elon Musk", "Jeff Bezos", "Bernard Arnault", "Warren Buffett", "Mark Zuckerberg",
+            "Larry Ellison", "Larry Page", "Sergey Brin", "Bill Gates", "Carlos Slim",
+            "Mukesh Ambani", "Steve Ballmer", "Michael Bloomberg", "Jim Walton", "Alice Walton",
+            "Rob Walton", "Francoise Bettencourt Meyers", "Amancio Ortega", "Richard Branson",
+            "Dieter Schwarz", "Li Ka-shing", "Sheldon Adelson", "Ingvar Kamprad",
+            "Jorge Paulo Lemann", "Tadashi Yanai", "Zhang Yiming", "Daniel Ek",
+            "Travis Kalanick", "Michael Dell", "Sergey Galitsky"
+        ];
+
         const dinosSpecs = {
             "trex": { id: "#001", nome: "Tyrannosaurus Rex", dieta: "Carnívoro", threat: "Nível Máximo", stability: "98.4%", dna: "T-REX_GEN_98.4_ALPHA", desc: "O rei dos predadores. Força de mordida inigualável.", tags: ["GIGANTE", "TERRESTRE"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/tiranossauro%20detalhes.jpg?raw=true" },
             "raptor": { id: "#002", nome: "Velociraptor", dieta: "Carnívoro (Social)", threat: "Nível Crítico", stability: "94.1%", dna: "V-RAPTOR_INTEL_MOD", desc: "Inteligência tática nível Alfa.", tags: ["INTELIGENTE", "VELOZ"], img: "https://github.com/Tatiana-adv/Biosny/blob/main/img/velo%20detalhes.jpg?raw=true" },
@@ -123,6 +167,8 @@
         };
 
         const dinoId = localStorage.getItem('selectedDino') || 'trex';
+        let saldoUsuario = 500000000;
+        let tempoTotal = 27 * 3600; // 27 Horas
 
         function formatarMoeda(valor) {
             return valor.toLocaleString('de-DE');
@@ -142,12 +188,11 @@
             document.getElementById('dino-dna').innerText = spec.dna;
             document.getElementById('dino-stability').innerText = spec.stability;
             document.getElementById('dna-bar').style.width = spec.stability;
+            document.getElementById('user-balance').innerText = "$ " + formatarMoeda(saldoUsuario);
 
-            // Preço com pontos
             const precoElemento = document.getElementById('dino-price');
             precoElemento.innerText = "$ " + formatarMoeda(precoValor);
 
-            // Tags
             const tagContainer = document.getElementById('dino-tags');
             tagContainer.innerHTML = "";
             spec.tags.forEach(t => {
@@ -158,18 +203,28 @@
             });
         }
 
-        // Lógica dos BOTS rodando nos detalhes também
+        function mostrarAlerta(nome, valor) {
+            const alerta = document.getElementById('billionaire-alert');
+            const msg = document.getElementById('alert-msg');
+            msg.innerText = `${nome} Deu lançe de $ ${formatarMoeda(valor)} milhões`;
+            alerta.style.display = 'block';
+            
+            setTimeout(() => {
+                alerta.style.display = 'none';
+            }, 5000);
+        }
+
         function lanceAutomaticoBot() {
             let precos = JSON.parse(localStorage.getItem('precosDinos'));
-            // Aumento aleatório entre 2 e 10 milhões
+            const bilionario = bilionarios[Math.floor(Math.random() * bilionarios.length)];
             const aumento = (Math.floor(Math.random() * 8) + 2) * 1000000;
             
             precos[dinoId] += aumento;
             localStorage.setItem('precosDinos', JSON.stringify(precos));
             
             atualizarTela();
-            
-            // Efeito visual de lance de bot
+            mostrarAlerta(bilionario, precos[dinoId]);
+
             document.getElementById('dino-price').classList.add('price-up');
             setTimeout(() => document.getElementById('dino-price').classList.remove('price-up'), 1000);
         }
@@ -179,28 +234,44 @@
             const valorLance = parseInt(input.value.replace(/\D/g, ""));
             let precos = JSON.parse(localStorage.getItem('precosDinos'));
 
+            if (valorLance > saldoUsuario) {
+                alert("SALDO INSUFICIENTE!");
+                return;
+            }
+
             if (valorLance > precos[dinoId]) {
+                saldoUsuario -= valorLance; // Deduz do saldo
                 precos[dinoId] = valorLance;
                 localStorage.setItem('precosDinos', JSON.stringify(precos));
                 atualizarTela();
-                alert("LANCE REGISTRADO COM SUCESSO!");
                 input.value = "";
+                
+                // Bot reage rápido se o usuário der lance
+                setTimeout(lanceAutomaticoBot, 3000);
             } else {
                 alert("O lance deve ser maior que o valor atual!");
             }
         }
 
-        // Máscara para o input de dinheiro
+        // Timer
+        setInterval(() => {
+            if (tempoTotal > 0) {
+                tempoTotal--;
+                const h = Math.floor(tempoTotal / 3600);
+                const m = Math.floor((tempoTotal % 3600) / 60);
+                const s = tempoTotal % 60;
+                document.getElementById('timer-leilao').innerText = 
+                    `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }
+        }, 1000);
+
         document.getElementById('bid-input').addEventListener('input', function(e) {
             let v = e.target.value.replace(/\D/g, "");
             if(v) e.target.value = parseInt(v).toLocaleString('de-DE');
         });
 
         window.onload = atualizarTela;
-        
-        // Bots dão lances a cada 30 segundos
         setInterval(lanceAutomaticoBot, 30000);
-
     </script>
 </body>
 </html>
