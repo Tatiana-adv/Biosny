@@ -64,9 +64,7 @@
 </main>
 
 <script>
-<script>
-// 1. BANCO DE DADOS COM O CAMINHO DAS SUAS IMAGENS
-// DICA: Substitua 'imagens/trex.jpg' pelo nome real da sua pasta e arquivo
+// BANCO DE DADOS BIOSYN ATUALIZADO
 const listaDinos = [
     { id: 'trex', nome: 'Tyrannosaurus Rex', preco: '89.000.000', cor: 'blue', tag: '#001', img: 'imagens/trex.jpg', desc: 'O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa.' },
     { id: 'raptor', nome: 'Velociraptor', preco: '58.200.000', cor: 'blue', tag: '#002', img: 'imagens/raptor.jpg', desc: 'Inteligência tática nível Alfa. Velocidade de ataque superior a 60km/h.' },
@@ -82,7 +80,7 @@ const listaDinos = [
 
 const grid = document.getElementById('grid-leilao');
 
-// 2. GERADOR DE CARDS ATUALIZADO
+// GERADOR DE CARDS
 grid.innerHTML = listaDinos.map(dino => `
     <div class="group relative bg-[#111722]/80 border border-[#232f48] rounded-lg overflow-hidden hover:border-${dino.cor === 'red' ? 'red' : 'blue'}-500 transition-all duration-500 shadow-2xl">
         <div class="h-80 bg-slate-900 overflow-hidden relative">
