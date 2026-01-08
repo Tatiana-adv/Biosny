@@ -64,28 +64,29 @@
 </main>
 
 <script>
-// DATABASE BIOSYN ATUALIZADO
+<script>
+// 1. BANCO DE DADOS COM O CAMINHO DAS SUAS IMAGENS
+// DICA: Substitua 'imagens/trex.jpg' pelo nome real da sua pasta e arquivo
 const listaDinos = [
-    { id: 'trex', nome: 'Tyrannosaurus Rex', preco: '45.000.000', cor: 'blue', tag: '#001', desc: 'O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa.' },
-    { id: 'raptor', nome: 'Velociraptor', preco: '18.200.000', cor: 'blue', tag: '#002', desc: 'Inteligência tática nível Alfa. Velocidade de ataque superior a 60km/h.' },
-    { id: 'indominus', nome: 'Indominus Rex', preco: '340.000.000', cor: 'red', tag: '#H-001', desc: 'Híbrido experimental. Capacidade de camuflagem térmica e inteligência superior.' },
-    { id: 'indoraptor', nome: 'Indoraptor', preco: '210.000.000', cor: 'red', tag: '#H-002', desc: 'Protótipo de arma biológica. Responde a sinalização a laser e comandos acústicos.' },
-    { id: 'spino', nome: 'Spinosaurus', preco: '55.000.000', cor: 'blue', tag: '#003', desc: 'O maior carnívoro terrestre registrado. Excelente nadador e caçador fluvial.' },
-    { id: 'mosasaurus', nome: 'Mosasaurus', preco: '62.000.000', cor: 'cyan', tag: '#A-001', desc: 'Gigante oceânico. Requer tanque de contenção nível 10 com filtragem de alta pressão.' },
-    { id: 'quetzal', nome: 'Quetzalcoatlus', preco: '48.000.000', cor: 'cyan', tag: '#V-001', desc: 'Maior animal voador da história. Envergadura comparável a um jato executivo.' },
-    { id: 'giga', nome: 'Giganotosaurus', preco: '52.000.000', cor: 'blue', tag: '#004', desc: 'Predador massivo. Supera o T-Rex em comprimento total. Altamente agressivo.' },
-    { id: 'scorpius', nome: 'Scorpius Rex', preco: '150.000.000', cor: 'red', tag: '#H-003', desc: 'O primeiro híbrido instável. Possui espinhos venenosos e agilidade anormal.' },
-    { id: 'therizino', nome: 'Therizinosaurus', preco: '38.000.000', cor: 'green', tag: '#022', desc: 'Herbívoro territorial. Equipado com garras de 1 metro capazes de perfurar aço.' }
-    // Adicione os outros aqui seguindo o padrão...
+    { id: 'trex', nome: 'Tyrannosaurus Rex', preco: '45.000.000', cor: 'blue', tag: '#001', img: 'imagens/trex.jpg', desc: 'O rei dos predadores. Força de mordida inigualável. Sequência genética 98.4% completa.' },
+    { id: 'raptor', nome: 'Velociraptor', preco: '18.200.000', cor: 'blue', tag: '#002', img: 'imagens/raptor.jpg', desc: 'Inteligência tática nível Alfa. Velocidade de ataque superior a 60km/h.' },
+    { id: 'indominus', nome: 'Indominus Rex', preco: '340.000.000', cor: 'red', tag: '#H-001', img: 'imagens/indominus.jpg', desc: 'Híbrido experimental. Capacidade de camuflagem térmica e inteligência superior.' },
+    { id: 'indoraptor', nome: 'Indoraptor', preco: '210.000.000', cor: 'red', tag: '#H-002', img: 'imagens/indoraptor.jpg', desc: 'Protótipo de arma biológica. Responde a sinalização a laser e comandos acústicos.' },
+    { id: 'spino', nome: 'Spinosaurus', preco: '55.000.000', cor: 'blue', tag: '#003', img: 'imagens/spino.jpg', desc: 'O maior carnívoro terrestre registrado. Excelente nadador e caçador fluvial.' },
+    { id: 'mosasaurus', nome: 'Mosasaurus', preco: '62.000.000', cor: 'cyan', tag: '#A-001', img: 'imagens/mosasaurus.jpg', desc: 'Gigante oceânico. Requer tanque de contenção nível 10 com filtragem de alta pressão.' },
+    { id: 'quetzal', nome: 'Quetzalcoatlus', preco: '48.000.000', cor: 'cyan', tag: '#V-001', img: 'imagens/quetzal.jpg', desc: 'Maior animal voador da história. Envergadura comparável a um jato executivo.' },
+    { id: 'giga', nome: 'Giganotosaurus', preco: '52.000.000', cor: 'blue', tag: '#004', img: 'imagens/giganotosaurus.jpg', desc: 'Predador massivo. Supera o T-Rex em comprimento total. Altamente agressivo.' },
+    { id: 'scorpius', nome: 'Scorpius Rex', preco: '150.000.000', cor: 'red', tag: '#H-003', img: 'imagens/scorpius.jpg', desc: 'O primeiro híbrido instável. Possui espinhos venenosos e agilidade anormal.' },
+    { id: 'therizino', nome: 'Therizinosaurus', preco: '38.000.000', cor: 'green', tag: '#022', img: 'imagens/therizino.jpg', desc: 'Herbívoro territorial. Equipado com garras de 1 metro capazes de perfurar aço.' }
 ];
 
 const grid = document.getElementById('grid-leilao');
 
-// GERADOR DE CARDS IGUAIS AOS "GRANDES" DA FOTO
+// 2. GERADOR DE CARDS ATUALIZADO
 grid.innerHTML = listaDinos.map(dino => `
     <div class="group relative bg-[#111722]/80 border border-[#232f48] rounded-lg overflow-hidden hover:border-${dino.cor === 'red' ? 'red' : 'blue'}-500 transition-all duration-500 shadow-2xl">
         <div class="h-80 bg-slate-900 overflow-hidden relative">
-            <img src="https://images.unsplash.com/photo-1517930410329-0eb74f67c07b?w=800" class="w-full h-full object-cover opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt="${dino.nome}">
+            <img src="${dino.img}" class="w-full h-full object-cover opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt="${dino.nome}">
             
             <div class="absolute inset-0 bg-gradient-to-t from-[#111722] to-transparent"></div>
             <div class="absolute top-6 right-6 font-mono text-sm text-blue-500 font-bold tracking-widest">${dino.tag}</div>
