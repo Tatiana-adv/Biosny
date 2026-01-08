@@ -80,45 +80,80 @@ const listaDinos = [
 
 const grid = document.getElementById('grid-leilao');
 
-// GERADOR DE CARDS - AJUSTADO PARA APARECER INTEIRO
+// GERADOR DE CARDS
+
 grid.innerHTML = listaDinos.map(dino => `
+
     <div class="group relative bg-[#111722]/80 border border-[#232f48] rounded-lg overflow-hidden hover:border-${dino.cor === 'red' ? 'red' : 'blue'}-500 transition-all duration-500 shadow-2xl">
-        
-        <div class="h-80 bg-black/40 overflow-hidden relative flex items-center justify-center">
-            <img src="${dino.img}" 
-                 class="w-full h-full object-contain opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
-                 alt="${dino.nome}">
+
+        <div class="h-80 bg-slate-900 overflow-hidden relative">
+
+            <img src="${dino.img}" class="w-full h-full object-cover opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" alt="${dino.nome}">
+
             
+
             <div class="absolute inset-0 bg-gradient-to-t from-[#111722] to-transparent"></div>
+
             <div class="absolute top-6 right-6 font-mono text-sm text-blue-500 font-bold tracking-widest">${dino.tag}</div>
+
         </div>
+
+
 
         <div class="p-8 border-t border-[#232f48] relative">
+
             <div class="mb-6">
+
                 <h2 class="text-3xl md:text-4xl font-bold uppercase tracking-tighter text-white mb-3">${dino.nome}</h2>
+
                 <p class="text-slate-400 font-mono text-xs leading-relaxed max-w-md">
+
                     ${dino.desc}
+
                 </p>
+
             </div>
+
+
 
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mt-10">
+
                 <div>
+
                     <span class="block text-[10px] text-slate-500 font-mono uppercase tracking-[0.2em] mb-1">Lance Inicial</span>
+
                     <span class="text-3xl font-bold text-green-500 font-mono tracking-tighter">$ ${dino.preco}</span>
+
                 </div>
+
                 
+
                 <button onclick="irParaDetalhes('${dino.id}')" class="w-full md:w-auto ${dino.cor === 'red' ? 'bg-red-600 hover:bg-red-500' : 'bg-blue-600 hover:bg-blue-500'} text-white px-10 py-4 rounded font-black uppercase tracking-widest text-xs transition-all transform active:scale-95 shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+
                     ACESSAR ATIVO
+
                 </button>
+
             </div>
+
         </div>
+
         
+
         <div class="absolute top-0 left-0 w-full h-1 bg-blue-500/20 group-hover:bg-blue-500 transition-colors"></div>
+
     </div>
+
 `).join('');
 
+
+
 function irParaDetalhes(id) {
+
     localStorage.setItem('selectedDino', id);
+
     window.location.href = 'detalhes.html';
+
 }
+
 </script>
