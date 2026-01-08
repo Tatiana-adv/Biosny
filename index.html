@@ -9,65 +9,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
     <style>
-        /* Efeito de Fundo: Hexágonos e Grid */
+        /* Fundo com Hexágonos e Grid */
         .bg-biosyn {
             background-color: #0a0e17;
+            /* Grid principal */
             background-image: 
-                linear-gradient(to right, rgba(35, 47, 72, 0.15) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(35, 47, 72, 0.15) 1px, transparent 1px),
-                url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); /* Textura de fibra para detalhe */
-            background-size: 40px 40px, 40px 40px, auto;
+                linear-gradient(to right, rgba(35, 47, 72, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(35, 47, 72, 0.2) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: relative;
         }
 
-        /* Hexágonos flutuantes (Simulados com gradiente radial) */
-        .hex-overlay {
-            position: fixed; inset: 0;
-            background-image: radial-gradient(circle at 50% 50%, rgba(19, 91, 236, 0.05) 0%, transparent 80%);
+        /* Camada de Hexágonos (Formas de fundo) */
+        .bg-biosyn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='173.2' viewBox='0 0 100 173.2'%3E%3Cpath d='M25 0 L75 0 L100 43.3 L100 129.9 L75 173.2 L25 173.2 L0 129.9 L0 43.3 Z' fill='none' stroke='rgba(19, 91, 236, 0.08)' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 200px 346px;
             pointer-events: none;
         }
 
-        /* GLITCH AGRESSIVO (Mais rápido e aparente) */
-        .glitch-agressivo {
-            position: relative;
-            animation: shake 0.5s infinite;
-        }
-        .glitch-agressivo::before, .glitch-agressivo::after {
-            content: attr(data-text);
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0a0e17;
-        }
-        .glitch-agressivo::before {
-            left: 3px; text-shadow: -3px 0 #ff00c1;
-            clip: rect(10px, 9999px, 40px, 0);
-            animation: glitch-fast 0.3s infinite linear alternate-reverse;
-        }
-        .glitch-agressivo::after {
-            left: -3px; text-shadow: -3px 0 #00fff9;
-            clip: rect(50px, 9999px, 90px, 0);
-            animation: glitch-fast 0.2s infinite linear alternate;
+        .hex-overlay {
+            position: fixed; inset: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, #0a0e17 90%);
+            pointer-events: none;
         }
 
-        @keyframes glitch-fast {
-            0% { clip: rect(10px, 9999px, 20px, 0); transform: skew(0.5deg); }
-            20% { clip: rect(30px, 9999px, 40px, 0); transform: skew(-1deg); }
-            40% { clip: rect(50px, 9999px, 10px, 0); transform: skew(1.5deg); }
-            60% { clip: rect(80px, 9999px, 90px, 0); transform: skew(-0.5deg); }
-            100% { clip: rect(20px, 9999px, 60px, 0); transform: skew(1deg); }
+        /* GLITCH LIMPO (Sem cores rosa/ciano) */
+        .glitch-clean {
+            position: relative;
+            color: white;
+            animation: shake 2s infinite;
+        }
+        
+        .glitch-clean::before, .glitch-clean::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0e17; /* Esconde a letra original para simular o corte */
+            color: white;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        /* Animação de corte sutil e mais lenta */
+        .glitch-clean::before {
+            left: 2px;
+            clip: rect(44px, 9999px, 56px, 0);
+            animation: glitch-anim 4s infinite linear alternate-reverse;
+        }
+        
+        .glitch-clean::after {
+            left: -2px;
+            clip: rect(10px, 9999px, 30px, 0);
+            animation: glitch-anim 3s infinite linear alternate;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 20px, 0); transform: translateX(-2px); }
+            5% { clip: rect(40px, 9999px, 42px, 0); transform: translateX(2px); }
+            10% { clip: rect(80px, 9999px, 95px, 0); transform: translateX(-1px); }
+            15% { clip: rect(0, 0, 0, 0); } /* Pausa no glitch */
+            100% { clip: rect(0, 0, 0, 0); }
         }
 
         @keyframes shake {
-            0%, 100% { transform: translate(0); }
-            10% { transform: translate(-1px, 1px); }
-            20% { transform: translate(1px, -1px); }
+            0%, 95%, 100% { transform: translate(0); }
+            96% { transform: translate(-1px, 1px); }
+            98% { transform: translate(1px, -1px); }
         }
 
-        /* LINHA AZUL (Laser Scan mais forte) */
+        /* LINHA DE SCAN */
         .scanline {
-            position: fixed; top: -10%; left: 0; width: 100%; h-1px;
+            position: fixed; top: -10%; left: 0; width: 100%;
             height: 2px;
-            background: rgba(19, 91, 236, 0.8);
-            box-shadow: 0 0 20px 4px rgba(19, 91, 236, 0.6);
-            animation: scan 3s linear infinite;
+            background: rgba(19, 91, 236, 0.5);
+            box-shadow: 0 0 20px 2px rgba(19, 91, 236, 0.3);
+            animation: scan 4s linear infinite;
             z-index: 5;
         }
 
@@ -76,11 +97,10 @@
             100% { top: 110%; }
         }
 
-        /* Scanlines fixas do monitor CRT */
         .monitor-lines {
             position: fixed; inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
-            background-size: 100% 3px, 3px 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
             pointer-events: none;
             z-index: 10;
         }
@@ -94,7 +114,7 @@
 
     <div class="relative z-20 flex flex-col h-screen w-full">
         
-        <header class="flex items-center justify-between border-b border-blue-900/30 bg-[#0a0e17]/90 px-6 py-3 border-t-4 border-primary backdrop-blur-md">
+        <header class="flex items-center justify-between border-b border-blue-900/30 bg-[#0a0e17]/80 px-6 py-3 border-t-4 border-primary backdrop-blur-sm">
             <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-primary text-3xl">genetics</span>
                 <div>
@@ -106,10 +126,9 @@
                 <div class="text-right text-[10px] text-[#4e5d78] font-mono leading-tight">
                     LAT: 34.0522 N<br>LNG: 118.2437 W
                 </div>
-                <div class="flex items-center gap-2 bg-[#1a2333] border border-red-500/40 px-3 py-1.5 rounded shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+                <div class="flex items-center gap-2 bg-[#1a2333] border border-red-500/40 px-3 py-1.5 rounded">
                     <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
                     <span class="text-[11px] font-bold text-red-100 tracking-tighter">STATUS: LOCKED</span>
-                    <span class="material-symbols-outlined text-sm text-slate-500">lock</span>
                 </div>
             </div>
         </header>
@@ -127,43 +146,39 @@
             </div>
 
             <div class="mb-12">
-                <span class="material-symbols-outlined text-red-500 text-6xl mb-6 drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]">warning</span>
-                <h1 class="glitch-agressivo text-5xl md:text-[84px] font-black uppercase tracking-[-2px] text-white leading-none" data-text="SYSTEM RESTRICTED">
+                <span class="material-symbols-outlined text-red-500 text-6xl mb-6 opacity-80">warning</span>
+                <h1 class="glitch-clean text-5xl md:text-[84px] font-black uppercase tracking-[-2px] leading-none" data-text="SYSTEM RESTRICTED">
                     SYSTEM RESTRICTED
                 </h1>
-                <p class="text-primary tracking-[6px] text-xs md:text-sm mt-6 font-bold opacity-80 uppercase">
+                <p class="text-primary tracking-[6px] text-xs md:text-sm mt-6 font-bold opacity-70 uppercase">
                     Biological Asset Database // Level 5 Clearance
                 </p>
             </div>
 
             <div class="relative group">
-                <div class="absolute -inset-1 bg-primary rounded-lg blur-lg opacity-30 group-hover:opacity-60 transition duration-500"></div>
-                <button id="entryBtn" class="relative bg-[#0d121d] border border-blue-500/40 px-16 py-6 rounded flex items-center gap-5 transition-all duration-300 hover:bg-primary shadow-[0_0_30px_rgba(19,91,236,0.2)]">
-                    <span class="material-symbols-outlined text-3xl transition-transform group-hover:scale-110">fingerprint</span>
+                <div class="absolute -inset-1 bg-primary rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                <button id="entryBtn" class="relative bg-[#0d121d] border border-blue-500/40 px-16 py-6 rounded flex items-center gap-5 transition-all duration-300 hover:bg-primary shadow-xl">
+                    <span class="material-symbols-outlined text-3xl">fingerprint</span>
                     <span class="text-2xl font-bold tracking-[2px] uppercase">Acesso Autorizado</span>
                 </button>
             </div>
 
-            <div class="w-full max-w-lg mt-16 bg-black/60 border border-blue-900/30 rounded-sm p-5 text-left font-mono text-[11px] text-blue-300/60 shadow-inner backdrop-blur-sm">
+            <div class="w-full max-w-lg mt-16 bg-black/40 border border-blue-900/20 rounded-sm p-5 text-left font-mono text-[11px] text-blue-300/40 backdrop-blur-sm">
                 <div id="log-display" class="space-y-1.5">
-                    <div class="flex justify-between uppercase"><span>> INITIALIZING HANDSHAKE...</span><span class="text-green-500">DONE</span></div>
-                    <div class="flex justify-between uppercase"><span>> DECRYPTING GENOMIC SEQUENCES...</span><span class="text-yellow-500 animate-pulse">BUSY</span></div>
-                    <div class="flex justify-between uppercase opacity-40"><span>> VERIFYING BIOMETRICS...</span><span>WAITING</span></div>
-                    <div class="flex justify-between uppercase opacity-20"><span>> ESTABLISHING SECURE TUNNEL...</span><span>PENDING</span></div>
+                    <div class="flex justify-between uppercase"><span>> INITIALIZING HANDSHAKE...</span><span class="text-green-500/70">DONE</span></div>
+                    <div class="flex justify-between uppercase"><span>> DECRYPTING GENOMIC SEQUENCES...</span><span class="text-yellow-500/70 animate-pulse">BUSY</span></div>
+                    <div class="flex justify-between uppercase opacity-30"><span>> VERIFYING BIOMETRICS...</span><span>WAITING</span></div>
                 </div>
-                <div class="mt-5 h-[3px] w-full bg-slate-900 rounded-full overflow-hidden">
-                    <div class="h-full bg-primary w-[42%] shadow-[0_0_15px_#135bec]"></div>
+                <div class="mt-5 h-[2px] w-full bg-slate-900 overflow-hidden">
+                    <div class="h-full bg-primary/60 w-[42%] shadow-[0_0_10px_rgba(19,91,236,0.5)]"></div>
                 </div>
             </div>
 
         </main>
 
-        <footer class="p-4 border-t border-blue-900/20 bg-black/40 flex justify-between items-center text-[10px] text-[#4e5d78] font-mono">
-            <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-sm">gavel</span>
-                <p class="uppercase tracking-widest">Warning: Unauthorized access is a violation of international genetic treaties.</p>
-            </div>
-            <p class="uppercase tracking-[2px]">Session: 8X99-22B-OMEGA</p>
+        <footer class="p-4 border-t border-blue-900/10 bg-black/20 flex justify-between items-center text-[9px] text-[#4e5d78] font-mono">
+            <p class="uppercase tracking-widest opacity-60">Unauthorized access is a violation of international genetic treaties.</p>
+            <p class="uppercase tracking-[2px] opacity-60">Session: 8X99-22B-OMEGA</p>
         </footer>
     </div>
 
